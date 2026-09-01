@@ -154,8 +154,62 @@
       </ul>
     </div>
   </nav>
+
+
+
+  <!-- Hero / Banner antes de los productos -->
+<header class="hero-productos d-flex align-items-center justify-content-center text-center text-white">
+  <div class="hero-overlay"></div>
+  <div class="container position-relative py-5">
+    <h1 class="display-5 fw-bold mb-3">AQUA-T</h1>
+    <p class="lead mx-auto" style="max-width: 650px;">
+      Filtros de piscina diseñados para mantener tu agua limpia y cristalina todo el año.
+      Encuentra el modelo ideal según el tamaño de tu piscina y disfruta de un mantenimiento
+      simple, eficiente y duradero.
+    </p>
+  </div>
+</header>
+
+<style>
+  .hero-productos {
+    position: relative;
+    min-height: 320px;
+    background-image: url("assetsimg/logo.png"); /* reemplaza por la ruta de tu logo */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(0,53,84,0.85) 0%, rgba(0,168,204,0.75) 100%);
+  }
+
+  .hero-productos .container {
+    z-index: 1;
+  }
+</style>
 <div class="container my-4">
-  <div class="row g-4">   <!-- g-4 = separación entre columnas -->
+
+
+  <div class="text-center mb-4">
+    <h2 class="fw-bold" style="color: var(--azul-profundo);">Nuestros Filtros</h2>
+    <p class="text-muted mx-auto" style="max-width: 550px;">
+      Conoce nuestra línea de filtros y equipo de limpieza,  disponibles en distintos tamaños
+      para adaptarse a las necesidades de tu piscina.
+    </p>
+  </div>
+
+  <div class="row g-4">
+    <!-- aquí van tus cards de productos -->
+  </div>
+
+</div>
+
+<div class="container my-4">
+  <div class="row g-4">   
 
     <div class="col-12 col-sm-6 col-md-4 col-lg-3">
       <div class="card h-100">
@@ -204,6 +258,28 @@
     </div>
     <div class="col-12 col-sm-6 col-md-4 col-lg-3">
       <div class="card h-100">
+        <img src="assetsimg/filtrochico.webp" class="card-img-top" alt="Filtro Piscina A Tripack Intex">
+        <div class="card-body text-center">
+          <h5 class="card-title">Filtro Piscina A Tripack Intex</h5>
+          <p class="text-primary">Filtro Piscina A Tripack Intex</p>
+          <p class="fw-bold">$5.990</p>
+          <a href="#" class="btn btn-primary">Comprar</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+      <div class="card h-100">
+        <img src="assetsimg/lona.webp" class="card-img-top" alt="lona">
+        <div class="card-body text-center">
+          <h5 class="card-title">Cobertor De Piscina, Lona Multiuso 4x7 Mts, Con Ojetillos</h5>
+          <p class="text-primary">Cobertor De Piscina, Lona Multiuso marca KUANGYE</p>
+          <p class="fw-bold">$149.990</p>
+          <a href="#" class="btn btn-primary">Comprar</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+      <div class="card h-100">
         <img src="assetsimg/bomba.webp" class="card-img-top" alt="Filtro VC VULCANO 20">
         <div class="card-body text-center">
           <h5 class="card-title">Bomba periférica APm37 0,5Hp 220V Leo</h5>
@@ -213,102 +289,19 @@
         </div>
       </div>
     </div>
-    <!-- <div class="container text-center ">
-  <div class="card" style="width: 18rem;">
-  <img src="assetsimg/filtro3.jpg" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">Filtro VC VULCANO 50</h5>
-    <p class="card-text">Filtro Vulcano </p>
-    <p class="card-text">$160.000</p>
-    <a href="#" class="btn btn-primary">Comprar</a>
+    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+      <div class="card h-100">
+        <img src="" class="card-img-top" alt="">
+        <div class="card-body text-center">
+          <h5 class="card-title"></h5>
+          <p class="text-primary"></p>
+          <p class="fw-bold"></p>
+          <a href="#" class="btn btn-primary">Ver mas</a>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
-</div>
-<div class="container text-center ">
-  
-  <div class="card" style="width: 18rem;">
-  <img src="assetsimg/equipofiltro.jpg" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">Equipo de limpiado</h5>
-    <p class="card-text">equipo de limpiado y aspirado</p>
-    <p class="card-text">$499.990</p>
-    <a href="#" class="btn btn-primary">Comprar</a>
-  </div>
-</div>
-</div>
-<div class="container text-center ">
-  
-  <div class="card" style="width: 18rem;">
-  <img src="assetsimg/bomba.webp" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">Bomba periférica APm37 0,5Hp 220V Leo</h5>
-    <p class="card-text">Bomba periférica APm37 0,5Hp 220V Leo</p>
-    <p class="card-text">$80.000</p>
-    <a href="#" class="btn btn-primary">Comprar</a>
-  </div> -->
-    <!-- agrega más .col aquí para más productos -->
 
-  </div>
-<!-- </div>
- <div class="container text-center ">
-  
-  <div class="card" style="width: 18rem;">
-  <img src="assetsimg/filtro1.jpg" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">Filtro VC VULCANO 20</h5>
-    <p class="card-text">Filtro Vulcano</p>
-    <p class="card-text">$120.000</p>
-    <a href="#" class="btn btn-primary">Comprar</a>
-  </div>
-</div>
-</div> 
-<div class="container text-center ">
-  
-  <div class="card" style="width: 18rem;">
-  <img src="assetsimg/filtro2.jpg" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">Filtro VC VULCANO 30</h5>
-    <p class="card-text">Filtro Vulcano </p>
-    <p class="card-text">$140.000</p>
-    <a href="#" class="btn btn-primary">Comprar</a>
-  </div>
-</div>
-</div>
-<div class="container text-center ">
-  
-  <div class="card" style="width: 18rem;">
-  <img src="assetsimg/filtro3.jpg" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">Filtro VC VULCANO 50</h5>
-    <p class="card-text">Filtro Vulcano </p>
-    <p class="card-text">$160.000</p>
-    <a href="#" class="btn btn-primary">Comprar</a>
-  </div>
-</div>
-</div>
-<div class="container text-center ">
-  
-  <div class="card" style="width: 18rem;">
-  <img src="assetsimg/equipofiltro.jpg" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">Equipo de limpiado</h5>
-    <p class="card-text">equipo de limpiado y aspirado</p>
-    <p class="card-text">$499.990</p>
-    <a href="#" class="btn btn-primary">Comprar</a>
-  </div>
-</div>
-</div>
-<div class="container text-center ">
-  
-  <div class="card" style="width: 18rem;">
-  <img src="assetsimg/bomba.webp" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">Bomba periférica APm37 0,5Hp 220V Leo</h5>
-    <p class="card-text">Bomba periférica APm37 0,5Hp 220V Leo</p>
-    <p class="card-text">$80.000</p>
-    <a href="#" class="btn btn-primary">Comprar</a>
-  </div>
-</div>
-</div> -->
+
 </body>
 </html>
