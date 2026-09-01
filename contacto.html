@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+    <script src="js/script.js"></script>
+
+  <style>
+    :root {
+      --azul-profundo: #003554;
+      --azul-medio: #006494;
+      --aqua: #00a8cc;
+      --aqua-claro: #6bf0d6;
+      --fondo-claro: #f0fbfa;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background-color: var(--fondo-claro);
+    }
+
+    
+    .navbar-custom {
+      background: linear-gradient(90deg, var(--azul-profundo) 0%, var(--azul-medio) 55%, var(--aqua) 100%);
+      box-shadow: 0 2px 10px rgba(0, 53, 84, 0.25);
+    }
+
+    .navbar-custom .navbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #ffffff !important;
+      letter-spacing: 0.5px;
+    }
+
+    .navbar-custom .navbar-brand img {
+      height: 45px;
+      width: 45px;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .navbar-custom .nav-link {
+      color: rgba(255, 255, 255, 0.9) !important;
+      font-weight: 500;
+      margin: 0 0.25rem;
+      padding: 0.45rem 0.7rem !important;
+      border-radius: 6px;
+      white-space: nowrap;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .navbar-custom .nav-link:hover,
+    .navbar-custom .nav-link:focus {
+      background-color: rgba(255, 255, 255, 0.15);
+      color: #ffffff !important;
+    }
+
+    .navbar-custom .nav-link.active {
+      background-color: var(--aqua-claro);
+      color: var(--azul-profundo) !important;
+    }
+
+    /* Franja siempre horizontal: en pantallas chicas se achica el texto
+       y el menú permite scroll lateral en vez de colapsar hacia abajo */
+    @media (max-width: 576px) {
+      .navbar-custom .navbar-brand {
+        font-size: 1.1rem;
+      }
+
+      .navbar-custom .navbar-brand img {
+        height: 34px;
+        width: 34px;
+      }
+
+      .navbar-custom .nav-link {
+        font-size: 0.85rem;
+        padding: 0.4rem 0.5rem !important;
+      }
+
+      .navbar-nav.flex-row {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+      }
+    }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, var(--aqua) 0%, var(--azul-medio) 100%);
+      color: #ffffff;
+      padding: 5rem 1rem;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: 0 auto 2rem auto;
+      opacity: 0.95;
+    }
+
+    .btn-aqua {
+      background-color: #ffffff;
+      color: var(--azul-profundo);
+      font-weight: 600;
+      padding: 0.7rem 2rem;
+      border-radius: 50px;
+      border: none;
+      transition: transform 0.2s ease;
+    }
+
+    .btn-aqua:hover {
+      transform: translateY(-2px);
+      background-color: var(--aqua-claro);
+      color: var(--azul-profundo);
+    }
+
+    /* ---- Sección de contacto ---- */
+    .contacto-section {
+      padding: 3.5rem 1rem 5rem;
+    }
+
+    .contacto-titulo {
+      color: #2e8b4f;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .contacto-intro {
+      max-width: 720px;
+      margin: 0 auto 2.5rem auto;
+      text-align: center;
+      color: #333;
+    }
+
+    .contacto-card {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #ffffff;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      padding: 2.5rem;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .contacto-card label {
+      font-weight: 500;
+      color: #333;
+      margin-bottom: 0.3rem;
+    }
+
+    .contacto-card .form-control,
+    .contacto-card .form-select {
+      border-radius: 4px;
+    }
+
+    .fake-recaptcha {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 400;
+      cursor: pointer;
+    }
+
+    .btn-enviar {
+      background-color: #f28c28;
+      color: #ffffff;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      padding: 0.7rem 2rem;
+      border-radius: 50px;
+      border: none;
+      transition: background-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .btn-enviar:hover {
+      background-color: #d97a1a;
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+  </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand navbar-custom sticky-top">
+    <div class="container d-flex flex-nowrap align-items-center">
+
+      <a class="navbar-brand flex-shrink-0" href="#inicio">
+        <img src="assetsimg/logo.png" alt="Logo de la empresa">
+        AQUA-T
+      </a>
+
+      <ul class="navbar-nav flex-row ms-auto">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#productos">Productos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#nosotros">Nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#blog">Blog</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#contacto">Contacto</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="contacto-section">
+    <div class="container">
+      <h2 class="contacto-titulo">COTIZA O CONSULTA AQUÍ</h2>
+      <p class="contacto-intro">
+        Para poder ayudarte de la mejor manera posible, te invitamos a completar nuestro formulario.
+        Por favor, proporciona tus detalles y tu consulta, <strong>y nos pondremos en contacto contigo a la brevedad.</strong>
+      </p>
+      <div class="contacto-card">
+        <form>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="nombreUsuario" class="form-label">Nombre</label>
+              <input type="text" class="form-control" id="nombreUsuario" placeholder="Ej: Alex Turner">
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="emailUsuario" class="form-label">Email</label>
+              <input type="email" class="form-control" id="emailUsuario" aria-describedby="emailHelp">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="telefono" class="form-label">Teléfono</label>
+              <input type="tel" class="form-control" id="telefono">
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="ciudad" class="form-label">Ciudad</label>
+              <input type="text" class="form-control" id="ciudad">
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="asunto" class="form-label">Asunto</label>
+            <select class="form-select" id="asunto">
+              <option selected>Cotización</option>
+              <option>Consulta general</option>
+              <option>Soporte técnico</option>
+              <option>Reclamo</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="mensaje" class="form-label">Mensaje</label>
+            <textarea class="form-control" id="mensaje" rows="6"></textarea>
+          </div>
+
+          <div class="mb-4">
+            <label class="fake-recaptcha">
+              <input type="checkbox" id="noRobot" required>
+              No soy un robot
+            </label>
+          </div>
+
+          <div id="mensajeForm" class="mb-3"></div>
+
+          <button type="submit" class="btn btn-enviar" onclick="validarForm(event)">Enviar Formulario</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
