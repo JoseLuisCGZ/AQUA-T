@@ -27,9 +27,7 @@ body {
 }
 
 
-/* =========================================================
-   2. NAVBAR - COMPARTIDO
-   ========================================================= */
+
 
 .navbar-custom {
     background: linear-gradient(
@@ -90,9 +88,6 @@ body {
 }
 
 
-/* =========================================================
-   3. HERO GENERAL
-   ========================================================= */
 
 .hero {
     background: linear-gradient(
@@ -122,9 +117,7 @@ body {
 }
 
 
-/* =========================================================
-   4. HERO PRINCIPAL DE PRODUCTOS / HOME
-   ========================================================= */
+
 
 .hero-productos {
     position: relative;
@@ -161,9 +154,7 @@ body {
 }
 
 
-/* =========================================================
-   5. BOTONES GENERALES
-   ========================================================= */
+
 
 .btn-aqua {
     display: inline-block;
@@ -191,9 +182,7 @@ body {
 }
 
 
-/* =========================================================
-   6. PRODUCTOS / CARDS
-   ========================================================= */
+
 
 .productos-titulo {
     color: var(--azul-profundo);
@@ -271,10 +260,6 @@ body {
 }
 
 
-/* =========================================================
-   7. CONTACTO
-   Estos estilos SOLO afectan a la página de contacto
-   ========================================================= */
 
 .contacto-section {
     padding: 3.5rem 1rem 5rem;
@@ -378,9 +363,7 @@ body {
 }
 
 
-/* =========================================================
-   8. FOOTER
-   ========================================================= */
+
 
 footer {
     background: linear-gradient(
@@ -400,9 +383,7 @@ footer {
 }
 
 
-/* =========================================================
-   9. RESPONSIVE
-   ========================================================= */
+
 
 @media (max-width: 576px) {
 
@@ -445,4 +426,12 @@ footer {
     .contacto-section {
         padding: 2.5rem 1rem 4rem;
     }
+
+    .mitad-azul-nosotros {
+    background: linear-gradient(135deg, var(--azul-profundo) 0%, var(--azul-medio) 55%, var(--aqua) 100%);
+    min-height: 500px; /* aumenta o disminuye este valor según cuánto quieras que baje */
+    }
+
+
+
 }

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AQUA-T - Nosotros</title>
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  
+</head>
+<body>
+
+
+  <nav class="navbar navbar-expand navbar-custom sticky-top">
+    <div class="container d-flex flex-nowrap align-items-center">
+      
+      <a class="navbar-brand flex-shrink-0" href="home.html">
+        <img src="assetsimg/logo.png" alt="Logo de la empresa">
+        AQUA-T
+      </a>
+
+      <ul class="navbar-nav flex-row ms-auto">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="productos.html">Productos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="nosotros.html">Nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="blogs.html">Blog</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="contacto.html">Contacto</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  
+  <!-- Hero / Banner antes de los productos -->
+<header class="hero-productos d-flex align-items-center justify-content-center text-center text-white">
+  <div class="hero-overlay"></div>
+  <div class="container position-relative py-5">
+    <h1 class="display-5 fw-bold mb-3">AQUA-T</h1>
+    <p class="lead mx-auto" style="max-width: 650px;">
+      Filtros de piscina diseñados para mantener tu agua limpia y cristalina todo el año.
+      Encuentra el modelo ideal según el tamaño de tu piscina y disfruta de un mantenimiento
+      simple, eficiente y duradero.
+    </p>
+  </div>
+</header>
+<section id="nosotros" class="py-5">
+  <div class="container">
+
+    <!-- Tu subtítulo ya creado -->
+    <div class="text-center mb-5">
+      <h2 class="fw-bold" style="color: var(--azul-profundo);">Nosotros</h2>
+      <p class="text-muted mx-auto" style="max-width: 550px;">
+        Conoce un poco más sobre quiénes somos y qué nos motiva.
+      </p>
+    </div>
+
+    <!-- Imagen (logo) + texto en dos mitades -->
+    <div class="row align-items-stretch g-0">
+
+      <!-- Mitad izquierda: logo -->
+      <div class="col-12 col-md-6 text-center d-flex align-items-center justify-content-center p-4">
+        <img src="assetsimg/logo.png" alt="Logo AQUA-T" class="img-fluid" style="max-width: 320px;">
+      </div>
+
+      <!-- Mitad derecha: título + párrafo, con fondo azul completo -->
+      <div class="col-12 col-md-6 d-flex align-items-center mitad-azul-nosotros p-5">
+        <div>
+          <h3 class="fw-bold mb-3 text-white">Quiénes Somos</h3>
+          <p class="text-white mb-0">
+            En AQUA-T nos dedicamos a ofrecer soluciones de filtrado de alta calidad para piscinas, herramientas para el mantenimiento y productos quimicos de limpieza,
+            combinando tecnología confiable con un servicio cercano. Nuestro compromiso es entregarte
+            productos duraderos que mantengan tu piscina limpia y en óptimas condiciones durante todo el año.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .mitad-azul-nosotros {
+    background: linear-gradient(135deg, var(--azul-profundo) 0%, var(--azul-medio) 55%, var(--aqua) 100%);
+  }
+</style>
+
+
+<section class="franja-mitad">
+  <div class="row g-0">
+
+    <!-- Mitad izquierda: fondo azul aqua -->
+    <div class="col-12 col-md-6 mitad-azul d-flex align-items-center justify-content-center text-center text-white p-5">
+      <div>
+        <h3 class="fw-bold mb-3">Calidad que se nota</h3>
+        <p class="mb-0" style="max-width: 400px;">
+          Más de 10 años entregando soluciones de filtrado confiables para piscinas
+          en todo el país.
+        </p>
+      </div>
+    </div>
+
+    <!-- Mitad derecha: fondo blanco -->
+    <div class="col-12 col-md-6 d-flex align-items-center justify-content-center text-center p-5" style="background-color: #ffffff;">
+      <div>
+        <h3 class="fw-bold mb-3" style="color: var(--azul-profundo);">Compromiso con la calidad</h3>
+        <p class="text-muted mb-0" style="max-width: 400px;">
+          Cada filtro Vulcano pasa por rigurosos controles para garantizar
+          durabilidad y un rendimiento óptimo.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .franja-mitad .row {
+    min-height: 320px;
+  }
+
+  .mitad-azul {
+    background: linear-gradient(135deg, var(--azul-profundo) 0%, var(--azul-medio) 55%, var(--aqua) 100%);
+  }
+</style>
