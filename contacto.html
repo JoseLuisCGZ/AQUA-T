@@ -49,25 +49,29 @@
           <div class="row">
             <div class="col-md-6 mb-3">
               <label for="nombreUsuario" class="form-label">Nombre</label>
-              <input type="text" class="form-control" id="nombreUsuario" placeholder="Ej: Alex Turner">
+              <input type="text" class="form-control" id="nombreUsuario" placeholder="Ej: Alex Turner" maxlength="100">
+              <div class="form-text">Máx. 100 caracteres</div>
+              <div id="nombreFeedback" class="campo-error"></div>
             </div>
             <div class="col-md-6 mb-3">
               <label for="emailUsuario" class="form-label">Email</label>
-              <input type="email" class="form-control" id="emailUsuario" aria-describedby="emailHelp">
+              <input type="email" class="form-control" id="emailUsuario" aria-describedby="emailHelp" maxlength="100">
+              <div class="form-text">Máx. 100 caracteres</div>
+              <div id="emailFeedback" class="campo-error"></div>
             </div>
           </div>
-
           <div class="row">
             <div class="col-md-6 mb-3">
               <label for="telefono" class="form-label">Teléfono</label>
               <input type="tel" class="form-control" id="telefono">
+              <div id="fonoFeedback"></div>
             </div>
             <div class="col-md-6 mb-3">
               <label for="ciudad" class="form-label">Ciudad</label>
               <input type="text" class="form-control" id="ciudad">
+              <div id="ciudadFeedback"></div>
             </div>
           </div>
-
           <div class="mb-3">
             <label for="asunto" class="form-label">Asunto</label>
             <select class="form-select" id="asunto">
@@ -77,21 +81,19 @@
               <option>Reclamo</option>
             </select>
           </div>
-
           <div class="mb-3">
             <label for="mensaje" class="form-label">Mensaje</label>
-            <textarea class="form-control" id="mensaje" rows="6"></textarea>
+            <textarea class="form-control" id="mensaje" rows="6" maxlength="500"></textarea>
+            <div class="form-text">Máx. 500 caracteres</div>
+            <div id="mensajeFeedback" class="campo-error"></div>
           </div>
-
           <div class="mb-4">
             <label class="fake-recaptcha">
               <input type="checkbox" id="noRobot" required>
               No soy un robot
             </label>
           </div>
-
           <div id="mensajeForm" class="mb-3"></div>
-
           <button type="submit" class="btn btn-enviar" onclick="validarForm(event)">Enviar Formulario</button>
         </form>
       </div>
@@ -100,3 +102,7 @@
 
 </body>
 </html>
+
+
+
+  
