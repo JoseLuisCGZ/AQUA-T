@@ -2,6 +2,7 @@ const colorError= "#b3261e";
 const colorExito= "#006494";
 
 const dominiosPermitidos= /^[^\s@]+@(duoc\.cl|profesor\.duoc\.cl|gmail\.com)$/i;
+const soloTelefono = /^[0-9+\s-]{8,15}$/;
 
 function validaNombre(){
     const nombre= document.getElementById("nombreUsuario").value.trim();

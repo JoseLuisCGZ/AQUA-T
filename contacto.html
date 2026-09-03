@@ -28,7 +28,7 @@
           <a class="nav-link active" aria-current="page" href="nosotros.html">Nosotros</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="blog.html">Blog</a>
+          <a class="nav-link active" aria-current="page" href="blogs.html">Blog</a>
         </li>
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="contacto.html">Contacto</a>
@@ -87,13 +87,15 @@
           <div class="row">
             <div class="col-md-6 mb-3">
               <label for="telefono" class="form-label">Teléfono</label>
-              <input type="tel" class="form-control" id="telefono">
-              <div id="fonoFeedback"></div>
+              <input type="tel" class="form-control" id="telefono" maxlength="15">
+              <div class="form-text">Máx. 15 caracteres</div>
+              <div id="fonoFeedback" class="campo-error"></div>
             </div>
             <div class="col-md-6 mb-3">
               <label for="ciudad" class="form-label">Ciudad</label>
-              <input type="text" class="form-control" id="ciudad">
-              <div id="ciudadFeedback"></div>
+              <input type="text" class="form-control" id="ciudad" maxlength="100">
+              <div class="form-text">Máx. 100 caracteres</div>
+              <div id="ciudadFeedback" class="campo-error"></div>
             </div>
           </div>
           <div class="mb-3">
@@ -124,8 +126,14 @@
     </div>
   </section>
 
+  <footer>
+    <p class="mb-0">© 2026 AQUA-T Derechos Reservados</p>
+  </footer>
+
 </body>
 </html>
+
+
 
 
 
