@@ -432,6 +432,31 @@ footer {
     min-height: 500px; /* aumenta o disminuye este valor según cuánto quieras que baje */
     }
 
+    .subnav-categorias {
+  background-color: var(--fondo-claro);
+  border-bottom: 1px solid rgba(0, 53, 84, 0.1);
+  box-shadow: 0 2px 6px rgba(0, 53, 84, 0.08);
+}
 
+.subnav-categorias .nav {
+  overflow-x: auto;
+  justify-content: center;
+}
+
+.subnav-categorias .nav-link {
+  color: var(--azul-medio);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.7rem 1rem;
+  white-space: nowrap;
+  border-bottom: 3px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.subnav-categorias .nav-link:hover,
+.subnav-categorias .nav-link:focus {
+  color: var(--aqua);
+  border-bottom-color: var(--aqua);
+}
 
 }
