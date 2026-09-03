@@ -20,10 +20,11 @@ html {
 }
 
 body {
-    margin: 0;
-    font-family: "Segoe UI", system-ui, sans-serif;
-    background-color: var(--fondo-claro);
-    color: var(--texto);
+  background-image: url("../assetsimg/water-texture-summer-vacation-pattern-line-swimming-pool-blue-circle-sunny-background-aqua-turquoise-design-net-828844.jpg");
+  background-size: cover;      /* la imagen cubre todo el ancho/alto */
+  background-position: center; /* centra la imagen */
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* opcional: efecto parallax al hacer scroll */
 }
 
 
