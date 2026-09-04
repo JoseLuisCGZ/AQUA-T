@@ -7,7 +7,7 @@
 
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
-  
+  <script src="js/animaciones.js" defer></script>
 </head>
 <body>
 
@@ -214,9 +214,11 @@
       </div>
     </div>
   </div>
-    
-    <!-- Mitad izquierda: fondo azul aqua -->
-    <div class="col-12 col-md-6 mitad-azul d-flex align-items-center justify-content-center text-center text-white p-5">
+
+<section class="franja-mitad">
+  <div class="row g-0">
+
+    <div class="col-12 col-md-6 mitad-azul d-flex align-items-center justify-content-center text-center text-white p-5" data-animate="1">
       <div>
         <h3 class="fw-bold mb-3">Calidad que se nota</h3>
         <p class="mb-0" style="max-width: 400px;">
@@ -225,36 +227,44 @@
         </p>
       </div>
     </div>
+
+    <div class="col-12 col-md-6 d-flex align-items-center justify-content-center text-center p-5" style="background-color:#ffffff;" data-animate="2">
+      <div>
+        <h3 class="fw-bold mb-3" style="color: var(--azul-profundo);">¿Por qué elegirnos?</h3>
+        <ul class="list-unstyled text-start mx-auto" style="max-width: 320px; color: var(--texto);">
+          <li class="mb-2">✅ Envío a todo Chile</li>
+          <li class="mb-2">✅ Garantía de fábrica</li>
+          <li class="mb-2">✅ Atención personalizada</li>
+        </ul>
+      </div>
+    </div>
+
   </div>
 </section>
-
-<style>
-  .franja-mitad .row {
-    min-height: 320px;
-  }
-
-  .mitad-azul {
-    background: linear-gradient(135deg, var(--azul-profundo) 0%, var(--azul-medio) 55%, var(--aqua) 100%);
-  }
-</style>
 
 <section class="franja-mitad">
   <div class="row g-0">
 
-    <!-- Mitad izquierda: fondo azul aqua -->
-    <div class="col-12 col-md-6 mitad-azul d-flex align-items-center justify-content-center text-center text-white p-5">
+    <div class="col-12 col-md-6 d-flex align-items-center justify-content-center p-5" style="background-color:#ffffff;" data-animate="1">
+      <img src="assetsimg/images.jpg" alt="Descuento en productos seleccionados" style="max-width: 320px;">
+    </div>
+
+    <div class="col-12 col-md-6 mitad-azul d-flex align-items-center justify-content-center text-center text-white p-5" data-animate="2">
       <div>
         <h3 class="fw-bold mb-3">DESCUENTO OMG!!!</h3>
-        <img src="assetsimg/images.jpg" class="card-img-top" alt="">
-        <p class="mb-0" style="max-width: 400px;">
-          DESCUENTO NOSE PERO SI
-
+        <p class="mb-4" style="max-width: 380px;">
+          Hasta 70% de descuento en productos seleccionados. Aprovecha antes que se acaben.
         </p>
+        <a href="productos.html" class="btn btn-aqua">Ver productos</a>
       </div>
     </div>
 
-    <footer>
+  </div>
+</section>
+
+<footer>
   <p class="mb-0">© 2026 AQUA-T Derechos Reservados</p>
 </footer>
+
 </body>
 </html>
