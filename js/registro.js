@@ -42,7 +42,7 @@ function validaRun() {
     } else if (run.length < 7 || run.length > 9) {
         feedback.textContent = "El RUN debe tener entre 7 y 9 caracteres";
         return false;
-    } else if (!esRunValido(run)) {
+    } else if (!runValido(run)) {
         feedback.textContent = "El RUN ingresado no es válido (verifique el dígito verificador)";
         return false;
     }
@@ -152,7 +152,6 @@ function validaFechaNacimiento() {
     const feedback = document.getElementById("fechaNacimientoFeedback");
     feedback.style.color = colorError;
 
-    // Campo opcional: solo se valida que no sea una fecha futura
     if (fecha !== "") {
         const hoy = new Date();
         const fechaIngresada = new Date(fecha);
@@ -244,38 +243,75 @@ function actualizarComunas() {
 }
 
 function validaFormRegistro(event) {
+    
     event.preventDefault();
 
     const nombre = document.getElementById("nombre").value.trim();
     const mensajeForm = document.getElementById("mensajeForm");
 
-    const validaciones = [
-        validaRun(),
-        validaNombre(),
-        validaApellidos(),
-        validaCorreo(),
-        validaContrasena(),
-        validaConfirmarContrasena(),
-        validaTelefono(),
-        validaFechaNacimiento(),
-        validaRegion(),
-        validaComuna(),
-        validaDireccion()
-    ];
+    const runValidoOk = validaRun();
+    const nombreValido = validaNombre();
+    const apellidosValido = validaApellidos();
+    const correoValido = validaCorreo();
+    const contrasenaValida = validaContrasena();
+    const confirmarValido = validaConfirmarContrasena();
+    const telefonoValido = validaTelefono();
+    const nacimientoValido = validaFechaNacimiento();
+    const regionValida = validaRegion();
+    const comunaValida = validaComuna();
+    const direccionValida = validaDireccion();
 
-    const formValido = validaciones.every(function (valido) { return valido; });
-
-    if (!formValido) {
-        mensajeForm.textContent = "Revisa los campos marcados en rojo antes de registrarte.";
+    if (!runValidoOk) {
+        mensajeForm.textContent = "Ingrese la Informacion Faltante";
         mensajeForm.style.color = colorError;
         return;
+    } else if (!nombreValido) {
+        mensajeForm.textContent = "Ingrese la Informacion Faltante";
+        mensajeForm.style.color = colorError;
+        return;
+    } else if (!apellidosValido) {
+        mensajeForm.textContent = "Ingrese la Informacion Faltante";
+        mensajeForm.style.color = colorError;
+        return;
+    } else if (!correoValido) {
+        mensajeForm.textContent = "Ingrese la Informacion Faltante";
+        mensajeForm.style.color = colorError;
+        return;
+    } else if (!contrasenaValida) {
+        mensajeForm.textContent = "Ingrese la Informacion Faltante";
+        mensajeForm.style.color = colorError;
+        return;
+    } else if (!confirmarValido) {
+        mensajeForm.textContent = "Ingrese la Informacion Faltante";
+        mensajeForm.style.color = colorError;
+        return;
+    } else if (!telefonoValido) {
+        mensajeForm.textContent = "Ingrese la Informacion Faltante";
+        mensajeForm.style.color = colorError;
+        return;
+    } else if (!nacimientoValido) {
+        mensajeForm.textContent = "Ingrese la Informacion Faltante";
+        mensajeForm.style.color = colorError;
+        return;
+    } else if (!regionValida) {
+        mensajeForm.textContent = "Ingrese la Informacion Faltante";
+        mensajeForm.style.color = colorError;
+        return;
+    } else if (!comunaValida) {
+        mensajeForm.textContent = "Ingrese la Informacion Faltante";
+        mensajeForm.style.color = colorError;
+        return;
+    } else if (!direccionValida) {
+        mensajeForm.textContent = "Ingrese la Informacion Faltante";
+        mensajeForm.style.color = colorError;
+        return;
+    } else {
+        mensajeForm.textContent = "¡Registro exitoso! Bienvenido/a " + nombre + ".";
+        mensajeForm.style.color = colorExito;
+        mensajeForm.style.fontWeight = "600";
+        event.target.reset();
+        document.getElementById("comuna").disabled = true;
     }
-
-    mensajeForm.textContent = "¡Registro exitoso! Bienvenido/a " + nombre + ".";
-    mensajeForm.style.color = colorExito;
-    mensajeForm.style.fontWeight = "600";
-    event.target.reset();
-    document.getElementById("comuna").disabled = true;
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -284,7 +320,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     cargarRegiones();
 
-    form.addEventListener("submit", validarFormRegistro);
+    form.addEventListener("submit", validaFormRegistro);
 
     document.getElementById("run").addEventListener("input", validaRun);
     document.getElementById("nombre").addEventListener("input", validaNombre);
