@@ -243,25 +243,25 @@ function actualizarComunas() {
 }
 
 function validaFormRegistro(event) {
-    
+
     event.preventDefault();
 
-    const nombre = document.getElementById("nombre").value.trim();
-    const mensajeForm = document.getElementById("mensajeForm");
+    const nombre= document.getElementById("nombre").value.trim();
+    const mensajeForm= document.getElementById("mensajeForm");
 
-    const runValidoOk = validaRun();
-    const nombreValido = validaNombre();
-    const apellidosValido = validaApellidos();
-    const correoValido = validaCorreo();
-    const contrasenaValida = validaContrasena();
-    const confirmarValido = validaConfirmarContrasena();
-    const telefonoValido = validaTelefono();
-    const nacimientoValido = validaFechaNacimiento();
-    const regionValida = validaRegion();
-    const comunaValida = validaComuna();
-    const direccionValida = validaDireccion();
+    const runValido= validaRun();
+    const nombreValido= validaNombre();
+    const apellidosValido= validaApellidos();
+    const correoValido= validaCorreo();
+    const contrasenaValida= validaContrasena();
+    const confirmarValido= validaConfirmarContrasena();
+    const telefonoValido= validaTelefono();
+    const nacimientoValido= validaFechaNacimiento();
+    const regionValida= validaRegion();
+    const comunaValida= validaComuna();
+    const direccionValida= validaDireccion();
 
-    if (!runValidoOk) {
+    if (!runValido) {
         mensajeForm.textContent = "Ingrese la Informacion Faltante";
         mensajeForm.style.color = colorError;
         return;
