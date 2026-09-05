@@ -7,6 +7,7 @@
 
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <script src="js/carrito.js" defer></script>
   
 </head>
 <body>
@@ -20,20 +21,18 @@
         AQUA-T
       </a>
 
-      <ul class="navbar-nav flex-row ms-auto">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="productos.html">Productos</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="nosotros.html">Nosotros</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="blogs.html">Blog</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="contacto.html">Contacto</a>
-        </li>
-      </ul>
+      <ul class="navbar-nav flex-row ms-auto align-items-center">
+  <li class="nav-item"><a class="nav-link active" aria-current="page" href="productos.html">Productos</a></li>
+  <li class="nav-item"><a class="nav-link active" aria-current="page" href="nosotros.html">Nosotros</a></li>
+  <li class="nav-item"><a class="nav-link active" aria-current="page" href="blogs.html">Blog</a></li>
+  <li class="nav-item"><a class="nav-link active" aria-current="page" href="contacto.html">Contacto</a></li>
+  <li class="nav-item">
+    <a class="icono-carrito" href="carrito.html">
+      🛒 Carrito
+      <span id="contadorCarrito" class="badge-carrito" style="display:none;">0</span>
+    </a>
+  </li>
+</ul>
     </div>
   </nav>
 <div class="subnav-categorias">
@@ -76,19 +75,24 @@
 </div>
 
 <div class="container my-4">
-  <div class="row g-4">   
+  <div class="row g-4">
 
     <div class="col-12 col-sm-6 col-md-4 col-lg-3">
       <div class="card h-100">
         <img src="assetsimg/piscina.webp" class="card-img-top" alt="piscina">
         <div class="card-body text-center">
-          <h5 class="card-title">Piscina Estructural Redonda +bomba+cobertor+escalera Bestway Color Gris</h5>
+          <h5 class="card-title">Piscina Estructural Redonda Bestway Gris</h5>
           <p class="text-primary">Piscina Estructural Redonda +bomba+cobertor+escalera Bestway Color Gris</p>
           <p class="fw-bold">$599.990</p>
-          <a href="#" class="btn btn-primary">Comprar</a>
+          <button class="btn btn-primary btn-agregar-carrito"
+                  data-id="piscina-bestway-gris" data-nombre="Piscina Estructural Redonda Bestway Gris"
+                  data-precio="599990" data-imagen="assetsimg/piscina.webp">
+            Añadir al carrito
+          </button>
         </div>
       </div>
     </div>
+
     <div class="col-12 col-sm-6 col-md-4 col-lg-3">
       <div class="card h-100">
         <img src="assetsimg/piscinaxica.webp" class="card-img-top" alt="piscina">
@@ -96,10 +100,15 @@
           <h5 class="card-title">Piscina Bestway Redonda Fácil Armado 3.05MX76Cm Azul</h5>
           <p class="text-primary">Piscina Bestway Redonda Fácil Armado 3.05MX76Cm Azul</p>
           <p class="fw-bold">$59.990</p>
-          <a href="#" class="btn btn-primary">Comprar</a>
+          <button class="btn btn-primary btn-agregar-carrito"
+                  data-id="piscina-bestway-azul" data-nombre="Piscina Bestway Redonda 3.05MX76Cm Azul"
+                  data-precio="59990" data-imagen="assetsimg/piscinaxica.webp">
+            Añadir al carrito
+          </button>
         </div>
       </div>
     </div>
+
     <div class="col-12 col-sm-6 col-md-4 col-lg-3">
       <div class="card h-100">
         <img src="assetsimg/piscinita.webp" class="card-img-top" alt="piscina">
@@ -107,23 +116,37 @@
           <h5 class="card-title">Piscina Steel Pro™ Con Toldo Y Neblina De Agua 2.44MX51Cm Bestway</h5>
           <p class="text-primary">Piscina Steel Pro™ Con Toldo Y Neblina De Agua 2.44MX51Cm Bestway</p>
           <p class="fw-bold">$109.990</p>
-          <a href="#" class="btn btn-primary">Comprar</a>
+          <button class="btn btn-primary btn-agregar-carrito"
+                  data-id="piscina-steel-pro" data-nombre="Piscina Steel Pro™ Con Toldo Y Neblina De Agua"
+                  data-precio="109990" data-imagen="assetsimg/piscinita.webp">
+            Añadir al carrito
+          </button>
         </div>
       </div>
     </div>
-    
 
     <div class="col-12 col-sm-6 col-md-4 col-lg-3">
       <div class="card h-100">
         <img src="assetsimg/piscinagigante.webp" class="card-img-top" alt="piscina">
         <div class="card-body text-center">
-          <h5 class="card-title">Piscina Estructural Redonda INTEX Ultra XTR 732 x 132 cm, 47.241L, con Bomba de Arena, Escalera</h5>
+          <h5 class="card-title">Piscina Estructural Redonda INTEX Ultra XTR</h5>
           <p class="text-primary">Piscina Estructural Redonda INTEX Ultra XTR 732 x 132 cm, 47.241L, con Bomba de Arena, Escalera</p>
           <p class="fw-bold">$1.899.990</p>
-          <a href="#" class="btn btn-primary">Comprar</a>
+          <button class="btn btn-primary btn-agregar-carrito"
+                  data-id="piscina-intex-ultra-xtr" data-nombre="Piscina Estructural Redonda INTEX Ultra XTR"
+                  data-precio="1899990" data-imagen="assetsimg/piscinagigante.webp">
+            Añadir al carrito
+          </button>
         </div>
       </div>
     </div>
-     <footer>
+
+  </div>
+</div>
+
+<footer>
   <p class="mb-0">© 2026 AQUA-T Derechos Reservados</p>
 </footer>
+
+</body>
+</html>

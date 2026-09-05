@@ -662,3 +662,106 @@ footer {
         padding: 1.5rem;
     }
 }
+
+.icono-carrito {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    color: var(--blanco);
+    text-decoration: none;
+    font-weight: 600;
+    padding: 0.5rem 0.9rem;
+}
+
+.icono-carrito:hover {
+    color: var(--aqua-claro);
+}
+
+.badge-carrito {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    background-color: #e63946;
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+}
+
+.fila-carrito {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--borde);
+}
+
+.fila-carrito img {
+    width: 90px;
+    height: 90px;
+    object-fit: contain;
+    background-color: var(--fondo-claro);
+    border-radius: 8px;
+    padding: 8px;
+}
+
+.fila-carrito .info-producto {
+    flex: 1;
+}
+
+.control-cantidad {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.control-cantidad button {
+    width: 30px;
+    height: 30px;
+    border: 1px solid var(--borde);
+    background-color: var(--blanco);
+    border-radius: 50%;
+    font-weight: 700;
+    color: var(--azul-profundo);
+    line-height: 1;
+}
+
+.control-cantidad button:hover {
+    background-color: var(--fondo-claro);
+}
+
+.control-cantidad input {
+    width: 45px;
+    text-align: center;
+    border: 1px solid var(--borde);
+    border-radius: 6px;
+    padding: 0.25rem;
+}
+
+.btn-eliminar-item {
+    background: none;
+    border: none;
+    color: #e63946;
+    font-size: 0.85rem;
+    padding: 0;
+    margin-top: 0.3rem;
+}
+
+.resumen-carrito {
+    background-color: var(--blanco);
+    border: 1px solid var(--borde);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 16px rgba(0, 53, 84, 0.08);
+}
+
+.carrito-vacio {
+    text-align: center;
+    padding: 4rem 1rem;
+}

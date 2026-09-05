@@ -7,6 +7,7 @@
 
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <script src="js/carrito.js" defer></script>
   
 </head>
 <body>
@@ -20,20 +21,18 @@
         AQUA-T
       </a>
 
-      <ul class="navbar-nav flex-row ms-auto">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="productos.html">Productos</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="nosotros.html">Nosotros</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="blogs.html">Blog</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="contacto.html">Contacto</a>
-        </li>
-      </ul>
+      <ul class="navbar-nav flex-row ms-auto align-items-center">
+  <li class="nav-item"><a class="nav-link active" aria-current="page" href="productos.html">Productos</a></li>
+  <li class="nav-item"><a class="nav-link active" aria-current="page" href="nosotros.html">Nosotros</a></li>
+  <li class="nav-item"><a class="nav-link active" aria-current="page" href="blogs.html">Blog</a></li>
+  <li class="nav-item"><a class="nav-link active" aria-current="page" href="contacto.html">Contacto</a></li>
+  <li class="nav-item">
+    <a class="icono-carrito" href="carrito.html">
+      🛒 Carrito
+      <span id="contadorCarrito" class="badge-carrito" style="display:none;">0</span>
+    </a>
+  </li>
+</ul>
     </div>
   </nav>
 
@@ -76,33 +75,46 @@
 </div>
 
 <div class="container my-4">
-  <div class="row g-4">   
+  <div class="row g-4">
 
     <div class="col-12 col-sm-6 col-md-4 col-lg-3">
       <div class="card h-100">
-        <img src="assetsimg/bomba.webp" class="card-img-top" alt="Filtro VC VULCANO 20">
+        <img src="assetsimg/bomba.webp" class="card-img-top" alt="Bomba periférica">
         <div class="card-body text-center">
           <h5 class="card-title">Bomba periférica APm37 0,5Hp 220V Leo</h5>
           <p class="text-primary">Bomba periférica APm37 0,5Hp 220V Leo</p>
           <p class="fw-bold">$80.000</p>
-          <a href="#" class="btn btn-primary">Comprar</a>
+          <button class="btn btn-primary btn-agregar-carrito"
+                  data-id="bomba-apm37" data-nombre="Bomba periférica APm37 0,5Hp 220V Leo"
+                  data-precio="80000" data-imagen="assetsimg/bomba.webp">
+            Añadir al carrito
+          </button>
         </div>
       </div>
     </div>
-    
-    
-    
-     <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+
+    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
       <div class="card h-100">
-        <img src="assetsimg/filtro5.webp" class="card-img-top" alt="piscina">
+        <img src="assetsimg/filtro5.webp" class="card-img-top" alt="Bomba de filtrado">
         <div class="card-body text-center">
-          <h5 class="card-title">Bomba De Filtrado De 5678 Litros Flowclear™ Bestway</h5>
+          <h5 class="card-title">Bomba De Filtrado 5678 Litros Flowclear™ Bestway</h5>
           <p class="text-primary">Bomba De Filtrado De 5678 Litros Flowclear™ Bestway</p>
           <p class="fw-bold">$77.990</p>
-          <a href="#" class="btn btn-primary">Comprar</a>
+          <button class="btn btn-primary btn-agregar-carrito"
+                  data-id="bomba-flowclear" data-nombre="Bomba De Filtrado 5678 Litros Flowclear™ Bestway"
+                  data-precio="77990" data-imagen="assetsimg/filtro5.webp">
+            Añadir al carrito
+          </button>
         </div>
       </div>
     </div>
-      <footer>
+
+  </div>
+</div>
+
+<footer>
   <p class="mb-0">© 2026 AQUA-T Derechos Reservados</p>
 </footer>
+
+</body>
+</html>
