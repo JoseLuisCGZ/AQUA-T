@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AQUA-T Admin - Productos</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/admin.css">
+    <script src="../js/admin/adminProductos.js"></script>
+    <script src="../js/admin/listadoProductos.js"></script>
+</head>
+<body>
+
+    <div class="admin-layout">
+ 
+    <aside class="admin-sidebar">
+      <a class="admin-brand" href="index.html">
+        <img src="../assetsimg/logo.png" alt="Logo de la empresa">
+        AQUA-T Admin
+      </a>
+ 
+      <ul class="admin-nav">
+        <li>
+          <a class="admin-nav-link" href="admin_home.html">Dashboard</a>
+        </li>
+        <li>
+          <a class="admin-nav-link activo" href="admin_productos.html">Productos</a>
+        </li>
+        <li>
+          <a class="admin-nav-link" href="admin_usuarios.html">Usuarios</a>
+        </li>
+      </ul>
+ 
+      <div class="admin-volver">
+        <a href="../home.html">&larr; Volver a la tienda</a>
+      </div>
+    </aside>
+ 
+    <main class="admin-contenido">
+      <div class="admin-header">
+        <h1>Productos</h1>
+        <a href="producto-nuevo.html" class="btn btn-enviar">+ Nuevo producto</a>
+      </div>
+      <div class="admin-panel">
+        <div class="table-responsive">
+          <table class="table admin-tabla">
+            <thead>
+              <tr>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Categoría</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th>Stock crítico</th>
+                <th class="text-end">Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="TablaProductos">
+            </tbody>
+          </table>
+        </div>
+        <p id="sinProductos" class="text-muted text-center mb-0" style="display: none;">
+          Todavía no hay productos registrados.
+        </p>
+      </div>
+    </main>
+  </div>
+    
+</body>
+</html>
