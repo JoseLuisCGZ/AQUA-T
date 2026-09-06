@@ -23,8 +23,8 @@ function tablaProductos(){
             "<td>"+ producto.stock + (stockBajo ? ' <span class="badge bg-danger">Stock bajo</span>' : "") + "</td>"+
             "<td>"+ (producto.stockCritico!== undefined && producto.stockCritico!== null ? producto.stockCritico: "-")+ "</td>" +
             '<td class="text-end">'+
-                '<a href="productoEditar.html?id='+ producto.id + '" class="btn btn-sm btn-outline-primary me-2">Editar</a>' +
-                '<button type="button" class="btn btn-sm btn-outline-danger" data-id="'+ producto.id + '">Eliminar</button>' +
+                '<a href="productoEditar.html?id='+ producto.id + '" class="btn btn-sm btn-outline-primary me-2" data-solo-admin>Editar</a>' +
+                '<button type="button" class="btn btn-sm btn-outline-danger" data-id="'+ producto.id + '" data-solo-admin>Eliminar</button>' +
             "</td>";
         tabla.appendChild(fila);
     });
@@ -40,6 +40,10 @@ function tablaProductos(){
             }
         });
     });
+
+    if(typeof sesionActual!== "undefined"){
+        visibilidadPorRol(sesionActual);
+    }
 }
 
 document.addEventListener("DOMContentLoaded", tablaProductos);
