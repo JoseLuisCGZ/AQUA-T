@@ -765,3 +765,24 @@ footer {
     text-align: center;
     padding: 4rem 1rem;
 }
+
+.panel-carrito {
+    background-color: var(--blanco);
+    border-radius: 14px;
+    box-shadow: 0 8px 30px rgba(0, 53, 84, 0.15);
+    padding: 2rem;
+}
+
+.fila-carrito:last-child {
+    border-bottom: none;
+}
+
+@media (max-width: 576px) {
+    .panel-carrito {
+        padding: 1.2rem;
+    }
+
+    .fila-carrito {
+        flex-wrap: wrap;
+    }
+}
