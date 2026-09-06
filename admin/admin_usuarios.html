@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AQUA-T Admin - Productos</title>
+    <title>AQUA-T Admin - Usuarios</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/admin.css">
     <script src="../js/manejoDeSesion.js"></script>
-    <script>const sesionActual = requerirRol(["Administrador", "Vendedor"]);</script>
-    <script src="../js/admin/adminProductos.js"></script>
-    <script src="../js/admin/listadoProductos.js"></script>
+    <script>const sesionActual = requerirRol(["Administrador"]);</script>
+    <script src="../js/admin/adminUsuarios.js"></script>
+    <script src="../js/admin/listadoUsuarios.js"></script>
 </head>
 <body>
 
@@ -27,10 +27,10 @@
           <a class="admin-nav-link" href="admin_home.html">Dashboard</a>
         </li>
         <li>
-          <a class="admin-nav-link activo" href="admin_productos.html">Productos</a>
+          <a class="admin-nav-link" href="admin_productos.html">Productos</a>
         </li>
         <li>
-          <a class="admin-nav-link" href="admin_usuarios.html">Usuarios</a>
+          <a class="admin-nav-link activo" href="admin_usuarios.html">Usuarios</a>
         </li>
       </ul>
  
@@ -41,29 +41,29 @@
  
     <main class="admin-contenido">
       <div class="admin-header">
-        <h1>Productos</h1>
-        <a href="productoNuevo.html" class="btn btn-enviar">+ Nuevo producto</a>
+        <h1>Usuarios</h1>
+        <a href="usuarioNuevo.html" class="btn btn-enviar">+ Nuevo usuario</a>
       </div>
       <div class="admin-panel">
         <div class="table-responsive">
           <table class="table admin-tabla">
             <thead>
               <tr>
-                <th>Código</th>
+                <th>RUN</th>
                 <th>Nombre</th>
-                <th>Categoría</th>
-                <th>Precio</th>
-                <th>Stock</th>
-                <th>Stock crítico</th>
+                <th>Apellidos</th>
+                <th>Correo</th>
+                <th>Tipo de usuario</th>
+                <th>Comuna</th>
                 <th class="text-end">Acciones</th>
               </tr>
             </thead>
-            <tbody id="TablaProductos">
+            <tbody id="TablaUsuarios">
             </tbody>
           </table>
         </div>
-        <p id="sinProductos" class="text-muted text-center mb-0" style="display: none;">
-          Todavía no hay productos registrados.
+        <p id="sinUsuarios" class="text-muted text-center mb-0" style="display: none;">
+          Todavía no hay usuarios registrados.
         </p>
       </div>
     </main>

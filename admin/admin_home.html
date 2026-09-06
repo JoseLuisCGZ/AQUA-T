@@ -7,19 +7,22 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/admin.css">
+    <script src="../js/manejoDeSesion.js"></script>
+    <script>const sesionActual = requerirRol(["Administrador", "Vendedor"]);</script>
     <script src="../js/admin/adminProductos.js"></script>
     <script src="../js/admin/adminUsuarios.js"></script>
+    <script src="../js/admin/visibilidadRol.js"></script>
 </head>
 <body>
 
     <div class="admin-layout">
  
     <aside class="admin-sidebar">
-      <a class="admin-brand" href="index.html">
+      <a class="admin-brand" href="admin_home.html">
         <img src="../assetsimg/logo.png" alt="Logo de la empresa">
         AQUA-T Admin
       </a>
- 
+
       <ul class="admin-nav">
         <li>
           <a class="admin-nav-link activo" href="admin_home.html">Dashboard</a>
@@ -37,13 +40,10 @@
       </div>
     </aside>
  
-    <!-- Contenido principal -->
     <main class="admin-contenido">
- 
       <div class="admin-header">
         <h1>¡Hola Administrador!</h1>
       </div>
- 
       <div class="row g-4 mb-4">
         <div class="col-12 col-sm-6 col-md-4">
           <div class="admin-card-stat">
@@ -58,16 +58,13 @@
           </div>
         </div>
       </div>
- 
       <div class="admin-panel">
         <p class="mb-0">
           Desde este panel puedes gestionar el catálogo de productos y los usuarios
           del sistema AQUA-T. Usa el menú lateral para navegar entre las secciones.
         </p>
       </div>
- 
     </main>
- 
   </div>
  
   <script>

@@ -43,6 +43,7 @@ function validarFormLogin(event){
     event.preventDefault();
 
     const mensajeForm= document.getElementById("mensajeForm");
+    const correoIngresado= document.getElementById("emailUsuario").value.trim();
 
     const emailValido = validaEmail();
     const contrasenaValida = validaContrasena();
@@ -55,12 +56,46 @@ function validarFormLogin(event){
         mensajeForm.textContent = "Ingrese la Informacion Faltante";
         mensajeForm.style.color = colorError;
         return;
-    } else {
+    }
+ 
+    const usuarios= obtenerUsuarios();
+    const usuarioEncontrado= usuarios.find(function (u) {
+        return u.correo.toLowerCase()=== correoIngresado.toLowerCase();
+    });
+ 
+    if (usuarioEncontrado) {
+        guardarSesion(usuarioEncontrado);
+
+        if(usuarioEncontrado.tipoUsuario=== "Administrador"){
+            mensajeForm.textContent = "Bienvenido/a " + usuarioEncontrado.nombre + ". Redirigiendo al panel de administrador...";
+            mensajeForm.style.color = colorExito;
+            mensajeForm.style.fontWeight = "600";
+            setTimeout(function () {
+                window.location.href = "admin/admin_home.html";
+            }, 1200);
+            return;
+        }else if(usuarioEncontrado.tipoUsuario=== "Vendedor"){
+            mensajeForm.textContent = "Bienvenido/a " + usuarioEncontrado.nombre + ". Redirigiendo al panel de vendedor...";
+            mensajeForm.style.color = colorExito;
+            mensajeForm.style.fontWeight = "600";
+            setTimeout(function () {
+                window.location.href = "admin/admin_home.html";
+            }, 1200);
+            return;
+        }
+
+        mensajeForm.textContent = "Bienvenido/a de vuelta, " + usuarioEncontrado.nombre + ".";
+        mensajeForm.style.color = colorExito;
+        mensajeForm.style.fontWeight = "600";
+        event.target.reset();
+        return;
+    }
+    
         mensajeForm.textContent = "Inicio de sesión exitoso.";
         mensajeForm.style.color = colorExito;
         mensajeForm.style.fontWeight = "600";
         event.target.reset();
-    }
+    
 }
 
     document.addEventListener("DOMContentLoaded", function(){

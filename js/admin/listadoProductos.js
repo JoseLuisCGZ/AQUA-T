@@ -23,7 +23,7 @@ function tablaProductos(){
             "<td>"+ producto.stock + (stockBajo ? ' <span class="badge bg-danger">Stock bajo</span>' : "") + "</td>"+
             "<td>"+ (producto.stockCritico!== undefined && producto.stockCritico!== null ? producto.stockCritico: "-")+ "</td>" +
             '<td class="text-end">'+
-                '<a href="producto-editar.html?id='+ producto.id + '" class="btn btn-sm btn-outline-primary me-2">Editar</a>' +
+                '<a href="productoEditar.html?id='+ producto.id + '" class="btn btn-sm btn-outline-primary me-2">Editar</a>' +
                 '<button type="button" class="btn btn-sm btn-outline-danger" data-id="'+ producto.id + '">Eliminar</button>' +
             "</td>";
         tabla.appendChild(fila);
@@ -34,7 +34,7 @@ function tablaProductos(){
             const id = boton.getAttribute("data-id");
             const producto = obtenerProductoPorId(id);
             const confirmar = confirm('¿Eliminar el producto "'+ producto.nombre + '"? Esta acción no se puede deshacer.');
-            if (confirmar) {
+            if (confirmar){
                 eliminarProducto(id);
                 tablaProductos();
             }

@@ -6,7 +6,7 @@ const usuariosPorDefecto= [
     {
         id: 1,
         run: "211567899",
-        nombre: "Ivan",
+        nombre: "Iván",
         apellidos: "Rivera",
         correo: "ivan.rivera@duoc.cl",
         fechaNacimiento: "2002-10-25",
@@ -23,8 +23,8 @@ const usuariosPorDefecto= [
         correo: "jose.cornejo@gmail.com",
         fechaNacimiento: "1998-11-02",
         tipoUsuario: "Vendedor",
-        region: "Región de Metropolitana de Santiago",
-        comuna: "Punete Alto",
+        region: "Región Metropolitana de Santiago",
+        comuna: "Puente Alto",
         direccion: "Puente Asalto 456"
     },
     {
