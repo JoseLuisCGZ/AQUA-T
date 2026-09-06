@@ -30,7 +30,7 @@
         <li>
           <a class="admin-nav-link" href="admin_productos.html">Productos</a>
         </li>
-        <li>
+        <li data-solo-admin>
           <a class="admin-nav-link" href="admin_usuarios.html">Usuarios</a>
         </li>
       </ul>
@@ -51,7 +51,7 @@
             <div class="admin-stat-label">Productos registrados</div>
           </div>
         </div>
-        <div class="col-12 col-sm-6 col-md-4">
+        <div class="col-12 col-sm-6 col-md-4" data-solo-admin>
           <div class="admin-card-stat">
             <div class="admin-stat-numero" id="totalUsuarios">0</div>
             <div class="admin-stat-label">Usuarios registrados</div>
@@ -60,17 +60,12 @@
       </div>
       <div class="admin-panel">
         <p class="mb-0">
-          Desde este panel puedes gestionar el catálogo de productos y los usuarios
+          Desde este panel puedes gestionar el catálogo de productos <span data-solo-admin>y los usuarios</span>
           del sistema AQUA-T. Usa el menú lateral para navegar entre las secciones.
         </p>
       </div>
     </main>
   </div>
- 
-  <script>
-    document.getElementById("totalProductos").textContent = obtenerProductos().length;
-    document.getElementById("totalUsuarios").textContent = obtenerUsuarios().length;
-  </script>
     
 </body>
 </html>

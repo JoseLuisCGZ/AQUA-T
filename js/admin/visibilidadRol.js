@@ -9,4 +9,6 @@ document.addEventListener("DOMContentLoaded", function () {
     if (totalUsuarios) {
         totalUsuarios.textContent= obtenerUsuarios().length;
     }
+
+    visibilidadPorRol(sesionActual);
 });
