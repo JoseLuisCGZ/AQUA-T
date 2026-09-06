@@ -23,18 +23,18 @@ function validaEmail(){
 }
 
 function validaContrasena() {
-    const contrasena = document.getElementById("contrasena").value;
-    const feedback = document.getElementById("contrasenaFeedback");
-    feedback.style.color = colorError;
+    const contrasena= document.getElementById("contrasena").value;
+    const feedback= document.getElementById("contrasenaFeedback");
+    feedback.style.color= colorError;
 
-    if (contrasena === "") {
-        feedback.textContent = "Ingrese una contraseña";
+    if (contrasena=== "") {
+        feedback.textContent= "Ingrese una contraseña";
         return false;
-    } else if (contrasena.length < 4 || contrasena.length > 10) {
-        feedback.textContent = "La contraseña debe tener entre 4 y 10 caracteres";
+    } else if (contrasena.length< 4 || contrasena.length> 10) {
+        feedback.textContent= "La contraseña debe tener entre 4 y 10 caracteres";
         return false;
     }
-    feedback.textContent = "";
+    feedback.textContent= "";
     return true;
 }
 
@@ -45,16 +45,16 @@ function validarFormLogin(event){
     const mensajeForm= document.getElementById("mensajeForm");
     const correoIngresado= document.getElementById("emailUsuario").value.trim();
 
-    const emailValido = validaEmail();
-    const contrasenaValida = validaContrasena();
+    const emailValido= validaEmail();
+    const contrasenaValida= validaContrasena();
 
-    if (!emailValido) {
-        mensajeForm.textContent = "Ingrese la Informacion Faltante";
-        mensajeForm.style.color = colorError;
+    if (!emailValido){
+        mensajeForm.textContent= "Ingrese la Informacion Faltante";
+        mensajeForm.style.color= colorError;
         return;
-    } else if (!contrasenaValida) {
-        mensajeForm.textContent = "Ingrese la Informacion Faltante";
-        mensajeForm.style.color = colorError;
+    }else if (!contrasenaValida){
+        mensajeForm.textContent= "Ingrese la Informacion Faltante";
+        mensajeForm.style.color= colorError;
         return;
     }
  
@@ -67,33 +67,35 @@ function validarFormLogin(event){
         guardarSesion(usuarioEncontrado);
 
         if(usuarioEncontrado.tipoUsuario=== "Administrador"){
-            mensajeForm.textContent = "Bienvenido/a " + usuarioEncontrado.nombre + ". Redirigiendo al panel de administrador...";
-            mensajeForm.style.color = colorExito;
-            mensajeForm.style.fontWeight = "600";
+            mensajeForm.textContent= "Bienvenido/a " + usuarioEncontrado.nombre + ". Redirigiendo al panel de administrador...";
+            mensajeForm.style.color= colorExito;
+            mensajeForm.style.fontWeight= "600";
             setTimeout(function () {
-                window.location.href = "admin/admin_home.html";
+                window.location.href= "admin/admin_home.html";
             }, 1200);
             return;
         }else if(usuarioEncontrado.tipoUsuario=== "Vendedor"){
-            mensajeForm.textContent = "Bienvenido/a " + usuarioEncontrado.nombre + ". Redirigiendo al panel de vendedor...";
-            mensajeForm.style.color = colorExito;
-            mensajeForm.style.fontWeight = "600";
+            mensajeForm.textContent= "Bienvenido/a " + usuarioEncontrado.nombre + ". Redirigiendo al panel de vendedor...";
+            mensajeForm.style.color= colorExito;
+            mensajeForm.style.fontWeight= "600";
             setTimeout(function () {
-                window.location.href = "admin/admin_home.html";
+                window.location.href= "admin/admin_home.html";
             }, 1200);
             return;
         }
 
-        mensajeForm.textContent = "Bienvenido/a de vuelta, " + usuarioEncontrado.nombre + ".";
-        mensajeForm.style.color = colorExito;
-        mensajeForm.style.fontWeight = "600";
-        event.target.reset();
-        return;
+        mensajeForm.textContent= "Bienvenido/a de vuelta, " + usuarioEncontrado.nombre + ". Redirigiendo...";
+        mensajeForm.style.color= colorExito;
+        mensajeForm.style.fontWeight= "600";
+        setTimeout(function(){
+            window.location.href= "home.html";
+        },1200);
+        return
     }
     
-        mensajeForm.textContent = "Inicio de sesión exitoso.";
-        mensajeForm.style.color = colorExito;
-        mensajeForm.style.fontWeight = "600";
+        mensajeForm.textContent= "Inicio de sesión exitoso.";
+        mensajeForm.style.color= colorExito;
+        mensajeForm.style.fontWeight= "600";
         event.target.reset();
     
 }
