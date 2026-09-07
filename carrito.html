@@ -82,6 +82,7 @@
 
     // Cupón de ejemplo válido: AQUA10 (10% de descuento).
     let descuentoAplicado = 0;
+    let porcentajeCupon = 0;
 
     function renderizarCarrito() {
       const carrito = obtenerCarrito();
@@ -123,21 +124,31 @@
     }
 
     function actualizarTotales() {
-      const carrito = obtenerCarrito();
-      const subtotal = calcularSubtotal(carrito);
-      const total = subtotal - descuentoAplicado;
+    const carrito = obtenerCarrito();
+    const subtotal = calcularSubtotal(carrito);
 
-      document.getElementById('subtotalTexto').textContent = formatearCLP(subtotal);
-      document.getElementById('totalTexto').textContent = formatearCLP(Math.max(total, 0));
+    // Recalcular el descuento según el subtotal actual
+    descuentoAplicado = subtotal * porcentajeCupon;
 
-      const descuentoFila = document.getElementById('descuentoFila');
-      if (descuentoAplicado > 0) {
-        descuentoFila.style.display = 'flex';
-        document.getElementById('descuentoTexto').textContent = '-' + formatearCLP(descuentoAplicado);
-      } else {
-        descuentoFila.style.display = 'none';
-      }
+    const total = subtotal - descuentoAplicado;
+
+    document.getElementById('subtotalTexto').textContent =
+      formatearCLP(subtotal);
+
+    document.getElementById('totalTexto').textContent =
+      formatearCLP(Math.max(total, 0));
+
+    const descuentoFila = document.getElementById('descuentoFila');
+
+    if (descuentoAplicado > 0) {
+      descuentoFila.style.display = 'flex';
+
+      document.getElementById('descuentoTexto').textContent =
+        '-' + formatearCLP(descuentoAplicado);
+    } else {
+      descuentoFila.style.display = 'none';
     }
+  }  
 
     document.getElementById('contenedorCarrito').addEventListener('click', (e) => {
       const boton = e.target.closest('button');
@@ -163,20 +174,32 @@
     });
 
     document.getElementById('btnAplicarCupon').addEventListener('click', () => {
-      const codigo = document.getElementById('inputCupon').value.trim().toUpperCase();
-      const mensaje = document.getElementById('mensajeCupon');
-      const subtotal = calcularSubtotal(obtenerCarrito());
+    const codigo = document.getElementById('inputCupon').value.trim().toUpperCase();
+    const mensaje = document.getElementById('mensajeCupon');
 
-      if (codigo === 'AQUA10') {
-        descuentoAplicado = subtotal * 0.10;
-        mensaje.textContent = 'Cupón aplicado: 10% de descuento.';
-        mensaje.className = 'small mb-3 text-success';
-      } else {
-        descuentoAplicado = 0;
-        mensaje.textContent = 'Cupón inválido.';
-        mensaje.className = 'small mb-3 text-danger';
-      }
-      actualizarTotales();
+    if (codigo === 'AQUA10') {
+
+      porcentajeCupon = 0.10;
+
+      mensaje.textContent = 'Cupón aplicado: 10% de descuento.';
+      mensaje.className = 'small mb-3 text-success';
+
+    } else if (codigo === 'VERANO20') {
+
+      porcentajeCupon = 0.20;
+
+      mensaje.textContent = 'Cupón aplicado: 20% de descuento.';
+      mensaje.className = 'small mb-3 text-success';
+
+    } else {
+
+      porcentajeCupon = 0;
+
+      mensaje.textContent = 'Cupón inválido.';
+      mensaje.className = 'small mb-3 text-danger';
+    }
+
+    actualizarTotales();
     });
 
     document.getElementById('btnPagar').addEventListener('click', () => {
