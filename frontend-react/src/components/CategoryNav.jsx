@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-function CategoryNav() {
+function CategoryNav({ mostrarAuth = false }) {
 
   return (
     <div className="subnav-categorias">
@@ -67,27 +67,23 @@ function CategoryNav() {
 
           </ul>
 
-          <ul className="nav flex-nowrap ms-auto">
+          {mostrarAuth && (
+            <ul className="nav flex-nowrap ms-auto">
+            
+              <li className="nav-item">
+                <Link className="nav-link" to="/login">
+                  Inicia sesión
+                </Link>
+              </li>
 
-            <li className="nav-item">
-              <Link
-                className="nav-link"
-                to="/login"
-              >
-                Inicia sesión
-              </Link>
-            </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/registro">
+                  Regístrate
+                </Link>
+              </li>
 
-            <li className="nav-item">
-              <Link
-                className="nav-link"
-                to="/registro"
-              >
-                Regístrate
-              </Link>
-            </li>
-
-          </ul>
+            </ul>
+            )}          
 
         </div>
 

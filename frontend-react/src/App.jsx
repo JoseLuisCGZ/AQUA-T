@@ -1,22 +1,50 @@
-// src/App.jsx
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
-import Productos from './pages/Productos';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route
+} from 'react-router-dom'
 
+import Home from './pages/Home'
+import Productos from './pages/Productos'
+import Nosotros from './pages/Nosotros'
+import Blogs from './pages/Blogs'
+import BlogDetalle from './pages/BlogDetalle'
 
 function App() {
   return (
     <Router>
+
       <Routes>
-        {/* Ruta para la página de inicio (http://localhost:5173/) */}
-        <Route path="/" element={<Home />} />
-        
-        {/* Ruta para la página de productos (http://localhost:5173/productos) */}
-        <Route path="/productos" element={<Productos />} />
+
+        <Route
+          path="/"
+          element={<Home />}
+        />
+
+        <Route
+          path="/productos"
+          element={<Productos />}
+        />
+
+        <Route
+          path="/nosotros"
+          element={<Nosotros />}
+        />
+
+        <Route
+          path="/blogs"
+          element={<Blogs />}
+        />
+
+        <Route
+          path="/blogs/:slug"
+          element={<BlogDetalle />}
+        />
+
       </Routes>
+
     </Router>
-  );
+  )
 }
 
-export default App;
-
+export default App

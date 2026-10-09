@@ -59,7 +59,7 @@ function Home() {
     <>
       <Navbar />
 
-      <CategoryNav />
+      <CategoryNav mostrarAuth />
 
       {/* HERO ORIGINAL */}
       <header className="hero-productos d-flex align-items-center justify-content-center text-center text-white">
