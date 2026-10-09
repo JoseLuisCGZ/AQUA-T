@@ -9,6 +9,7 @@ import Productos from './pages/Productos'
 import Nosotros from './pages/Nosotros'
 import Blogs from './pages/Blogs'
 import BlogDetalle from './pages/BlogDetalle'
+import Contacto from './pages/Contacto'
 
 function App() {
   return (
@@ -40,6 +41,12 @@ function App() {
           path="/blogs/:slug"
           element={<BlogDetalle />}
         />
+
+        <Route
+        path="/contacto"
+        element={<Contacto />}
+        />
+
 
       </Routes>
 
