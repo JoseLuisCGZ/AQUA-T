@@ -1,66 +1,98 @@
 import { Link } from 'react-router-dom'
 
 function CategoryNav() {
+
   return (
     <div className="subnav-categorias">
+
       <div className="container">
 
-        <ul className="nav flex-nowrap">
+        <div className="d-flex">
 
-          <li className="nav-item">
-            <Link className="nav-link" to="/productos?categoria=Filtros">
-              Filtros
-            </Link>
-          </li>
+          <ul className="nav flex-nowrap">
 
-          <li className="nav-item">
-            <Link className="nav-link" to="/productos?categoria=Bombas">
-              Bombas
-            </Link>
-          </li>
+            <li className="nav-item">
+              <Link
+                className="nav-link"
+                to="/productos?categoria=Filtros"
+              >
+                Filtros
+              </Link>
+            </li>
 
-          <li className="nav-item">
-            <Link className="nav-link" to="/productos?categoria=Accesorios">
-              Accesorios
-            </Link>
-          </li>
+            <li className="nav-item">
+              <Link
+                className="nav-link"
+                to="/productos?categoria=Bombas"
+              >
+                Bombas
+              </Link>
+            </li>
 
-          <li className="nav-item">
-            <Link className="nav-link" to="/productos?categoria=Piscinas">
-              Piscinas
-            </Link>
-          </li>
+            <li className="nav-item">
+              <Link
+                className="nav-link"
+                to="/productos?categoria=Accesorios"
+              >
+                Accesorios
+              </Link>
+            </li>
 
-          <li className="nav-item">
-            <Link className="nav-link" to="/productos?categoria=Químicos">
-              Químicos
-            </Link>
-          </li>
+            <li className="nav-item">
+              <Link
+                className="nav-link"
+                to="/productos?categoria=Piscinas"
+              >
+                Piscinas
+              </Link>
+            </li>
 
-          <li className="nav-item">
-            <Link className="nav-link" to="/productos">
-              Ver todos
-            </Link>
-          </li>
+            <li className="nav-item">
+              <Link
+                className="nav-link"
+                to="/productos?categoria=Químicos"
+              >
+                Químicos
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link
+                className="nav-link"
+                to="/productos"
+              >
+                Ver todos
+              </Link>
+            </li>
+
+          </ul>
 
           <ul className="nav flex-nowrap ms-auto">
 
             <li className="nav-item">
-              <Link className="nav-link" to="/login">
+              <Link
+                className="nav-link"
+                to="/login"
+              >
                 Inicia sesión
               </Link>
             </li>
 
             <li className="nav-item">
-              <Link className="nav-link" to="/registro">
+              <Link
+                className="nav-link"
+                to="/registro"
+              >
                 Regístrate
               </Link>
             </li>
 
           </ul>
 
-        </ul>
+        </div>
+
       </div>
+
     </div>
   )
 }

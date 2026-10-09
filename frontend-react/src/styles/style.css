@@ -20,7 +20,7 @@ html {
 }
 
 body {
-  background-image: url("../assetsimg/water-texture-summer-vacation-pattern-line-swimming-pool-blue-circle-sunny-background-aqua-turquoise-design-net-828844.jpg");
+  background-image: url("/assetsimg/water-texture-summer-vacation-pattern-line-swimming-pool-blue-circle-sunny-background-aqua-turquoise-design-net-828844.jpg");
   background-size: cover;      /* la imagen cubre todo el ancho/alto */
   background-position: center; /* centra la imagen */
   background-repeat: no-repeat;
@@ -125,7 +125,7 @@ body {
 
     min-height: 320px;
 
-    background-image: url("../assetsimg/logo.png");
+    background-image: url("/assetsimg/logo.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

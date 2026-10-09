@@ -1,96 +1,292 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect } from 'react'
+import { Link } from 'react-router-dom'
 
-export default function Home() {
-  const productos = [
-    {
-      id: "filtro-vulcano-20",
-      nombre: "Filtro VC VULCANO 20",
-      categoria: "Filtro Vulcano",
-      precio: "$120.000",
-      precioNum: 120000,
-      imagen: "assetsimg/filtro1.jpg"
-    },
-    // ... rest de tu arreglo de productos
-  ];
+import Navbar from '../components/Navbar'
+import CategoryNav from '../components/CategoryNav'
+import ProductoCard from '../components/ProductoCard'
+
+import { productos } from '../data/productos'
+import { agregarAlCarrito } from '../services/carritoService'
+
+function Home() {
+
+  const idsDestacados = [
+    'filtro-vulcano-20',
+    'filtro-vulcano-30',
+    'filtro-vulcano-50',
+    'equipo-limpiado',
+    'filtro-tripack-intex',
+    'lona-cobertor',
+    'clarificador-piscina',
+    'bomba-apm37'
+  ]
+
+  const productosDestacados = idsDestacados
+    .map(id => productos.find(producto => producto.id === id))
+    .filter(Boolean)
+
+  useEffect(() => {
+    const elementos = document.querySelectorAll('[data-animate]')
+
+    if (!('IntersectionObserver' in window)) {
+      elementos.forEach(elemento => {
+        elemento.classList.add('in-view')
+      })
+
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view')
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      {
+        threshold: 0.15
+      }
+    )
+
+    elementos.forEach(elemento => observer.observe(elemento))
+
+    return () => observer.disconnect()
+  }, [])
 
   return (
     <>
-      <nav className="navbar navbar-expand navbar-custom sticky-top">
-        <div className="container d-flex flex-nowrap align-items-center">
-          <Link className="navbar-brand flex-shrink-0" to="/">
-            <img src="assetsimg/logo.png" alt="Logo de la empresa" />
-            AQUA-T
-          </Link>
+      <Navbar />
 
-          <ul className="navbar-nav flex-row ms-auto align-items-center">
-            <li className="nav-item"><Link className="nav-link active" to="/productos">Productos</Link></li>
-            <li className="nav-item"><Link className="nav-link active" to="/nosotros">Nosotros</Link></li>
-            <li className="nav-item"><Link className="nav-link active" to="/blogs">Blog</Link></li>
-            <li className="nav-item"><Link className="nav-link active" to="/contacto">Contacto</Link></li>
-            <li className="nav-item">
-              <Link className="icono-carrito" to="/carrito">
-                🛒 Carrito
-                <span id="contadorCarrito" className="badge-carrito" style={{ display: 'none' }}>0</span>
-              </Link>
-            </li>
-          </ul>
-        </div>
-      </nav>
+      <CategoryNav />
 
-      {/* Subnav de categorías */}
-      <div className="subnav-categorias">
-        <div className="container">
-          <ul className="nav flex-nowrap">
-            <li className="nav-item"><Link className="nav-link" to="/productos">Filtros</Link></li>
-            <li className="nav-item"><Link className="nav-link" to="/productos">Bombas</Link></li>
-            <li className="nav-item"><Link className="nav-link" to="/productos">Ver todos</Link></li>
-            <div className="nav flex-nowrap ms-auto d-flex">
-              <li className="nav-item"><Link className="nav-link" to="/login">Inicia sesión</Link></li>
-              <li className="nav-item"><Link className="nav-link" to="/registro">Regístrate</Link></li>
-            </div>
-          </ul>
-        </div>
-      </div>
-
-      {/* Hero Header */}
+      {/* HERO ORIGINAL */}
       <header className="hero-productos d-flex align-items-center justify-content-center text-center text-white">
         <div className="hero-overlay"></div>
+
         <div className="container position-relative py-5">
-          <h1 className="display-5 fw-bold mb-3">AQUA-T</h1>
-          <p className="lead mx-auto" style={{ maxWidth: '650px' }}>
-            Filtros de piscina diseñados para mantener tu agua limpia y cristalina todo el año.
+
+          <h1 className="display-5 fw-bold mb-3">
+            AQUA-T
+          </h1>
+
+          <p
+            className="lead mx-auto"
+            style={{ maxWidth: '650px' }}
+          >
+            Filtros de piscina diseñados para mantener tu agua limpia
+            y cristalina todo el año. Encuentra el modelo ideal según
+            el tamaño de tu piscina y disfruta de un mantenimiento
+            simple, eficiente y duradero.
           </p>
+
         </div>
       </header>
 
-      {/* Grilla de productos */}
+      {/* TÍTULO PRODUCTOS */}
       <div className="container my-4">
-        <div className="row g-4">
-          {productos.map((prod) => (
-            <div className="col-12 col-sm-6 col-md-4 col-lg-3" key={prod.id}>
-              <div className="card h-100">
-                <img src={prod.imagen} className="card-img-top" alt={prod.nombre} />
-                <div className="card-body text-center">
-                  <h5 className="card-title">{prod.nombre}</h5>
-                  <p className="text-primary">{prod.categoria}</p>
-                  {prod.precioAnterior && (
-                    <p className="mb-1 text-decoration-line-through text-muted">{prod.precioAnterior}</p>
-                  )}
-                  <p className={`fw-bold ${prod.descuento ? 'text-danger' : ''}`}>{prod.precio}</p>
-                  <button className="btn btn-primary btn-agregar-carrito">
-                    Añadir al carrito
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
+
+        <div className="text-center mb-4">
+
+          <h2
+            className="fw-bold"
+            style={{ color: 'var(--azul-profundo)' }}
+          >
+            Nuestros Productos
+          </h2>
+
+          <p
+            className="text-muted mx-auto"
+            style={{ maxWidth: '550px' }}
+          >
+            Conoce nuestra línea de filtros, bombas y equipo de limpieza,
+            disponibles en distintos tamaños para adaptarse a las
+            necesidades de tu piscina.
+          </p>
+
         </div>
+
       </div>
 
-      <footer className="text-center py-4 bg-light">
-        <p className="mb-0">© 2026 AQUA-T Derechos Reservados</p>
+      {/* LOS 8 PRODUCTOS QUE TENÍA EL HOME ORIGINAL */}
+      <div className="container my-4">
+
+        <div className="row g-4">
+
+          {productosDestacados.map(producto => (
+
+            <div
+              className="col-12 col-sm-6 col-md-4 col-lg-3"
+              key={producto.id}
+            >
+
+              <ProductoCard
+                producto={producto}
+                onAgregar={agregarAlCarrito}
+              />
+
+            </div>
+
+          ))}
+
+          {/* TARJETA VER MÁS ORIGINAL */}
+          <div className="col-12 col-sm-6 col-md-4 col-lg-3">
+
+            <div className="card h-100 d-flex align-items-center justify-content-center">
+
+              <div className="card-body text-center d-flex flex-column justify-content-center">
+
+                <Link
+                  to="/productos"
+                  className="btn btn-primary"
+                >
+                  Ver más
+                </Link>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      {/* CALIDAD / POR QUÉ ELEGIRNOS */}
+      <section className="franja-mitad">
+
+        <div className="row g-0">
+
+          <div
+            className="col-12 col-md-6 mitad-azul d-flex align-items-center justify-content-center text-center text-white p-5"
+            data-animate="1"
+          >
+
+            <div>
+
+              <h3 className="fw-bold mb-3">
+                Calidad que se nota
+              </h3>
+
+              <p
+                className="mb-0"
+                style={{ maxWidth: '400px' }}
+              >
+                Más de 10 años entregando soluciones de filtrado
+                confiables para piscinas en todo el país.
+              </p>
+
+            </div>
+
+          </div>
+
+          <div
+            className="col-12 col-md-6 d-flex align-items-center justify-content-center text-center p-5"
+            style={{ backgroundColor: '#ffffff' }}
+            data-animate="2"
+          >
+
+            <div>
+
+              <h3
+                className="fw-bold mb-3"
+                style={{ color: 'var(--azul-profundo)' }}
+              >
+                ¿Por qué elegirnos?
+              </h3>
+
+              <ul
+                className="list-unstyled text-start mx-auto"
+                style={{
+                  maxWidth: '320px',
+                  color: 'var(--texto)'
+                }}
+              >
+
+                <li className="mb-2">
+                  ✅ Envío a todo Chile
+                </li>
+
+                <li className="mb-2">
+                  ✅ Garantía de fábrica
+                </li>
+
+                <li className="mb-2">
+                  ✅ Atención personalizada
+                </li>
+
+              </ul>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      {/* DESCUENTO */}
+      <section className="franja-mitad">
+
+        <div className="row g-0">
+
+          <div
+            className="col-12 col-md-6 d-flex align-items-center justify-content-center p-5"
+            style={{ backgroundColor: '#ffffff' }}
+            data-animate="1"
+          >
+
+            <img
+              src="/assetsimg/images.jpg"
+              alt="Descuento en productos seleccionados"
+              style={{ maxWidth: '320px' }}
+            />
+
+          </div>
+
+          <div
+            className="col-12 col-md-6 mitad-azul d-flex align-items-center justify-content-center text-center text-white p-5"
+            data-animate="2"
+          >
+
+            <div>
+
+              <h3 className="fw-bold mb-3">
+                DESCUENTO OMG!!!
+              </h3>
+
+              <p
+                className="mb-4"
+                style={{ maxWidth: '380px' }}
+              >
+                Hasta 70% de descuento en productos seleccionados.
+                Aprovecha antes que se acaben.
+              </p>
+
+              <Link
+                to="/productos"
+                className="btn btn-aqua"
+              >
+                Ver productos
+              </Link>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <footer>
+        <p className="mb-0">
+          © 2026 AQUA-T Derechos Reservados
+        </p>
       </footer>
     </>
-  );
+  )
 }
+
+export default Home
