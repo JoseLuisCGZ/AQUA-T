@@ -91,9 +91,6 @@ export function eliminarDelCarrito(id) {
   return guardarCarrito(carrito)
 }
 
-export function vaciarCarrito() {
-  return guardarCarrito([])
-}
 
 export function calcularSubtotal(carrito) {
 

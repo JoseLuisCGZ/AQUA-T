@@ -139,3 +139,10 @@ export function validarCredenciales(
 
   return usuario
 }
+
+export function obtenerUsuarioPorId(id) {
+  return obtenerUsuarios().find(
+    usuario => usuario.id === Number(id)
+  )
+}
+

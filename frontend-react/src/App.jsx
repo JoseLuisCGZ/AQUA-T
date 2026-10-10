@@ -13,6 +13,9 @@ import Contacto from './pages/Contacto'
 import Registro from './pages/Registro'
 import Login from './pages/Login'
 import Carrito from './pages/Carrito'
+import Checkout from './pages/Checkout'
+import CompraExitosa from './pages/CompraExitosa'
+import CompraFallida from './pages/CompraFallida'
 
 function App() {
   return (
@@ -63,6 +66,21 @@ function App() {
         <Route
         path="/carrito"
         element={<Carrito />}
+        />
+
+        <Route
+        path="/checkout"
+        element={<Checkout />}
+        />
+
+        <Route
+        path="/compra-exitosa"
+        element={<CompraExitosa />}
+        />
+
+        <Route
+        path="/compra-fallida"
+        element={<CompraFallida />}
         />
 
 

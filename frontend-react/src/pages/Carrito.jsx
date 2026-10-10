@@ -1,5 +1,9 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import {
+  Link,
+  useNavigate
+} from 'react-router-dom'
+
 
 import Navbar from '../components/Navbar'
 
@@ -7,12 +11,13 @@ import {
   obtenerCarrito,
   actualizarCantidad,
   eliminarDelCarrito,
-  vaciarCarrito,
   calcularSubtotal,
   formatearCLP
 } from '../services/carritoService'
 
 function Carrito() {
+
+  const navigate = useNavigate()
 
   const [carrito, setCarrito] =
     useState(obtenerCarrito())
@@ -115,24 +120,19 @@ function Carrito() {
 
   function pagar() {
 
-    if (carrito.length === 0) {
-      return
-    }
-
-    alert(
-      '¡Compra simulada con éxito! Gracias por tu compra en AQUA-T.'
-    )
-
-    vaciarCarrito()
-
-    setCarrito([])
-
-    setPorcentajeCupon(0)
-
-    setCupon('')
-
-    setMensajeCupon('')
+  if (carrito.length === 0) {
+    return
   }
+
+  navigate('/checkout', {
+    state: {
+      cupon:
+        cuponValido
+          ? cupon.trim().toUpperCase()
+          : ''
+    }
+  })
+}
 
   const subtotal =
     calcularSubtotal(carrito)
