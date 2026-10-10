@@ -1,6 +1,12 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
+import {
+  agregarUsuario,
+  correoExiste,
+  runExiste
+} from '../services/usuariosService'
+
 import Navbar from '../components/Navbar'
 
 import { regionesComunas } from '../data/regiones'
@@ -226,16 +232,56 @@ function Registro() {
       Object.values(nuevosErrores)
         .some(error => error !== '')
 
-    if (hayErrores) {
+    if (runExiste(formulario.run)) {
+
+    setErrores(prev => ({
+        ...prev,
+        run: 'Este RUN ya está registrado'
+    }))
+
+    setMensajeForm(
+        'El RUN ingresado ya tiene una cuenta'
+    )
+
+    setRegistroExitoso(false)
+
+    return
+    }
+
+    if (correoExiste(formulario.correo)) {
+
+      setErrores(prev => ({
+        ...prev,
+        correo: 'Este correo ya está registrado'
+      }))
 
       setMensajeForm(
-        'Ingrese la Informacion Faltante'
+        'El correo ingresado ya tiene una cuenta'
       )
 
       setRegistroExitoso(false)
 
       return
     }
+    
+        const regionSeleccionada =
+      regionesComunas[
+        Number(formulario.region)
+      ].region
+  
+    agregarUsuario({
+      run: formulario.run.trim().toUpperCase(),
+      nombre: formulario.nombre.trim(),
+      apellidos: formulario.apellidos.trim(),
+      correo: formulario.correo.trim().toLowerCase(),
+      contrasena: formulario.contrasena,
+      telefono: formulario.telefono.trim(),
+      fechaNacimiento: formulario.fechaNacimiento,
+      tipoUsuario: 'Cliente',
+      region: regionSeleccionada,
+      comuna: formulario.comuna,
+      direccion: formulario.direccion.trim()
+    })
 
     setMensajeForm(
       `¡Registro exitoso! Bienvenido/a ${formulario.nombre.trim()}.`

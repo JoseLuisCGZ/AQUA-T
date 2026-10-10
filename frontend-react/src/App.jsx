@@ -11,6 +11,7 @@ import Blogs from './pages/Blogs'
 import BlogDetalle from './pages/BlogDetalle'
 import Contacto from './pages/Contacto'
 import Registro from './pages/Registro'
+import Login from './pages/Login'
 
 function App() {
   return (
@@ -51,6 +52,11 @@ function App() {
         <Route
         path="/contacto"
         element={<Contacto />}
+        />
+
+        <Route
+        path="/login"
+        element={<Login />}
         />
 
 
