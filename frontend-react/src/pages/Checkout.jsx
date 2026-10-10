@@ -10,7 +10,8 @@ import Navbar from '../components/Navbar'
 import {
   obtenerCarrito,
   calcularSubtotal,
-  formatearCLP
+  formatearCLP,
+  vaciarCarrito
 } from '../services/carritoService'
 
 import {

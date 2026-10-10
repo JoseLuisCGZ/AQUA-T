@@ -16,6 +16,8 @@ import Carrito from './pages/Carrito'
 import Checkout from './pages/Checkout'
 import CompraExitosa from './pages/CompraExitosa'
 import CompraFallida from './pages/CompraFallida'
+import AdminDashboard from './pages/admin/AdminDashboard'
+import RutaProtegida from './components/RutaProtegida'
 
 function App() {
   return (
@@ -82,6 +84,21 @@ function App() {
         path="/compra-fallida"
         element={<CompraFallida />}
         />
+
+        <Route
+        path="/admin"
+        element={
+        <RutaProtegida
+        rolesPermitidos={[
+        'Administrador',
+        'Vendedor'
+        ]}
+        >
+          <AdminDashboard />
+        </RutaProtegida>
+        }
+        />
+
 
 
       </Routes>

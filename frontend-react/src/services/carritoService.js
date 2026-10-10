@@ -117,3 +117,7 @@ export function formatearCLP(valor) {
     Math.round(valor)
       .toLocaleString('es-CL')
 }
+
+export function vaciarCarrito() {
+  return guardarCarrito([])
+}

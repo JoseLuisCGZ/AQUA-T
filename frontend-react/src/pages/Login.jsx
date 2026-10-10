@@ -94,10 +94,25 @@ function Login() {
 
     setExito(true)
 
-    setTimeout(() => {
+      setTimeout(() => {
+      
+    if (
+      usuario.tipoUsuario ===
+        'Administrador' ||
+      usuario.tipoUsuario ===
+        'Vendedor'
+    ) {
+
+      navigate('/admin')
+
+    } else {
+
       navigate('/')
-    }, 1000)
-  }
+
+    }
+
+      }, 1000)
+      }
 
   return (
     <>
