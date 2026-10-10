@@ -6,12 +6,12 @@ globalThis.IS_REACT_ACT_ENVIRONMENT = true;
 
 export { act };
 
-export function montar(vista, { ruta = '/', patron = null } = {}) {
+export function montar(vista, { ruta= '/', patron = null }= {}) {
   const contenedor= document.createElement('div');
   document.body.appendChild(contenedor);
   const root= createRoot(contenedor);
 
-  const contenido = patron
+  const contenido= patron
     ? <Routes><Route path={patron} element={vista} /></Routes>
     : vista;
 
@@ -31,7 +31,7 @@ export function escribir(campo, valor) {
     campo instanceof HTMLSelectElement ? HTMLSelectElement.prototype
     : campo instanceof HTMLTextAreaElement ? HTMLTextAreaElement.prototype
     : HTMLInputElement.prototype;
-  const asignar = Object.getOwnPropertyDescriptor(prototipo, 'value').set;
+  const asignar= Object.getOwnPropertyDescriptor(prototipo, 'value').set;
   act(() => {
     asignar.call(campo, valor);
     campo.dispatchEvent(new Event(campo instanceof HTMLSelectElement ? 'change' : 'input', { bubbles: true }));
@@ -70,7 +70,7 @@ export function cargarCarrito(items) {
   localStorage.setItem('aquaCarrito', JSON.stringify(items));
 }
 
-export const PRODUCTO_EJEMPLO = {
+export const PRODUCTO_EJEMPLO= {
   id: 'filtro-vulcano-20',
   nombre: 'Filtro VC VULCANO 20',
   precio: 120000,
