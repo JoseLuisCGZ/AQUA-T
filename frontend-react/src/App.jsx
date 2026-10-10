@@ -12,6 +12,7 @@ import BlogDetalle from './pages/BlogDetalle'
 import Contacto from './pages/Contacto'
 import Registro from './pages/Registro'
 import Login from './pages/Login'
+import Carrito from './pages/Carrito'
 
 function App() {
   return (
@@ -57,6 +58,11 @@ function App() {
         <Route
         path="/login"
         element={<Login />}
+        />
+
+        <Route
+        path="/carrito"
+        element={<Carrito />}
         />
 
 

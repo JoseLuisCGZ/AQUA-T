@@ -232,6 +232,17 @@ function Registro() {
       Object.values(nuevosErrores)
         .some(error => error !== '')
 
+    if (hayErrores) {
+
+    setMensajeForm(
+      'Ingrese la Informacion Faltante'
+    )
+  
+    setRegistroExitoso(false)
+  
+    return
+    }
+
     if (runExiste(formulario.run)) {
 
     setErrores(prev => ({
@@ -268,7 +279,7 @@ function Registro() {
       regionesComunas[
         Number(formulario.region)
       ].region
-  
+
     agregarUsuario({
       run: formulario.run.trim().toUpperCase(),
       nombre: formulario.nombre.trim(),
