@@ -19,7 +19,7 @@ describe('Vista Contacto', () => {
     });
     clic(boton(c, 'Enviar Formulario'));
 
-    expect(c.textContent).toContain('Muchas Gracias Ana Pérez Tu consulta fue enviada con exito.');
+    expect(c.textContent).toContain('Muchas Gracias Julian Casablancas Tu consulta fue enviada con exito.');
     expect(c.querySelector('[name="nombre"]').value).toBe('');
     expect(c.querySelector('[name="mensaje"]').value).toBe('');
     expect(c.querySelector('[name="noRobot"]').checked).toBeFalse();

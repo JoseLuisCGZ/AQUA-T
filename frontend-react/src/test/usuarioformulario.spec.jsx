@@ -46,6 +46,6 @@ describe('Vista UsuarioFormulario', () => {
 
     expect(obtenerUsuarios().length).toBe(total + 1);
     expect(c.querySelector('h1').textContent).toBe('Usuarios');
-    expect(c.textContent).toContain('marta.lagos@gmail.com');
+    expect(c.textContent).toContain('gonazales.jorge@gmail.com');
   });
 });

@@ -28,10 +28,10 @@ describe('Vista Registro', () => {
     });
     clic(boton(c, 'Registrar'));
 
-    expect(c.textContent).toContain('¡Registro exitoso! Bienvenido/a Ana.');
+    expect(c.textContent).toContain('¡Registro exitoso! Bienvenido/a Alex.');
     const usuarios = obtenerUsuarios();
     expect(usuarios.length).toBe(antes + 1);
-    expect(usuarios[usuarios.length - 1].correo).toBe('ana.perez@gmail.com');
+    expect(usuarios[usuarios.length - 1].correo).toBe('turner.alex@gmail.com');
     expect(usuarios[usuarios.length - 1].tipoUsuario).toBe('Cliente');
     expect(c.querySelector('[name="run"]').value).toBe('');
     expect(c.querySelector('[name="correo"]').value).toBe('');
