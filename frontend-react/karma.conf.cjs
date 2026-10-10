@@ -1,8 +1,8 @@
 module.exports = function (config) {
   config.set({
     frameworks: ['jasmine', 'webpack'],
-    files: ['src/**/*.spec.js', 'src/**/*.spec.jsx'],
-    preprocessors: { 'src/**/*.spec.{js,jsx}': ['webpack'] },
+    files: ['src/test/**/*.spec.jsx'],
+    preprocessors: { 'src/test/**/*.spec.jsx': ['webpack'] },
     webpack: {
       mode: 'development',
       devtool: 'inline-source-map',
