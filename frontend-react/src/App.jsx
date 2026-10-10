@@ -169,6 +169,19 @@ function App() {
         }
         />
 
+        <Route
+        path="/admin/usuarios/:id/editar"
+        element={
+        <RutaProtegida
+        rolesPermitidos={[
+        'Administrador'
+        ]}
+        >
+        <UsuarioFormulario />
+        </RutaProtegida>
+      }
+      />
+
       </Routes>
 
     </Router>
