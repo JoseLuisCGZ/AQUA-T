@@ -20,6 +20,8 @@ import AdminDashboard from './pages/admin/AdminDashboard'
 import RutaProtegida from './components/RutaProtegida'
 import AdminProductos from './pages/admin/AdminProductos'
 import ProductoFormulario from './pages/admin/ProductoFormulario'
+import AdminUsuarios from './pages/admin/AdminUsuarios'
+import UsuarioFormulario from './pages/admin/UsuarioFormulario'
 
 function App() {
   return (
@@ -127,7 +129,7 @@ function App() {
         </RutaProtegida>
         }
         />
-  
+
         <Route
         path="/admin/productos/:id/editar"
         element={
@@ -137,6 +139,32 @@ function App() {
         ]}
         >
         <ProductoFormulario />
+        </RutaProtegida>
+        }
+        />
+
+        <Route
+        path="/admin/usuarios"
+        element={
+        <RutaProtegida
+        rolesPermitidos={[
+        'Administrador'
+        ]}
+        >
+        <AdminUsuarios />
+        </RutaProtegida>
+        }
+        />
+
+        <Route
+        path="/admin/usuarios/nuevo"
+        element={
+        <RutaProtegida
+        rolesPermitidos={[
+          'Administrador'
+        ]}
+        >
+        <UsuarioFormulario />
         </RutaProtegida>
         }
         />

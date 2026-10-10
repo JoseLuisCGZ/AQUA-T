@@ -146,3 +146,47 @@ export function obtenerUsuarioPorId(id) {
   )
 }
 
+export const tiposUsuario = [
+  'Administrador',
+  'Cliente',
+  'Vendedor'
+]
+
+export function actualizarUsuario(
+  id,
+  datosActualizados
+) {
+  const usuarios = obtenerUsuarios()
+
+  const indice = usuarios.findIndex(
+    usuario =>
+      usuario.id === Number(id)
+  )
+
+  if (indice === -1) {
+    return false
+  }
+
+  usuarios[indice] = {
+    ...usuarios[indice],
+    ...datosActualizados,
+    id: Number(id)
+  }
+
+  guardarUsuarios(usuarios)
+
+  return true
+}
+
+export function eliminarUsuario(id) {
+  const usuarios =
+    obtenerUsuarios().filter(
+      usuario =>
+        usuario.id !== Number(id)
+    )
+
+  guardarUsuarios(usuarios)
+
+  return usuarios
+}
+
