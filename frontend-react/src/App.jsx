@@ -18,6 +18,8 @@ import CompraExitosa from './pages/CompraExitosa'
 import CompraFallida from './pages/CompraFallida'
 import AdminDashboard from './pages/admin/AdminDashboard'
 import RutaProtegida from './components/RutaProtegida'
+import AdminProductos from './pages/admin/AdminProductos'
+import ProductoFormulario from './pages/admin/ProductoFormulario'
 
 function App() {
   return (
@@ -99,7 +101,45 @@ function App() {
         }
         />
 
+        <Route
+        path="/admin/productos"
+        element={
+        <RutaProtegida
+        rolesPermitidos={[
+        'Administrador',
+        'Vendedor'
+        ]}
+        >
+        <AdminProductos />
+        </RutaProtegida>
+        }
+        />
 
+        <Route
+        path="/admin/productos/nuevo"
+        element={
+        <RutaProtegida
+        rolesPermitidos={[
+          'Administrador'
+        ]}
+        >
+        <ProductoFormulario />
+        </RutaProtegida>
+        }
+        />
+  
+        <Route
+        path="/admin/productos/:id/editar"
+        element={
+        <RutaProtegida
+        rolesPermitidos={[
+          'Administrador'
+        ]}
+        >
+        <ProductoFormulario />
+        </RutaProtegida>
+        }
+        />
 
       </Routes>
 

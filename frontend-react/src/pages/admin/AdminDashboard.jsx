@@ -9,8 +9,8 @@ import {
 } from '../../services/usuariosService'
 
 import {
-  productos
-} from '../../data/productos'
+  obtenerProductos
+} from '../../services/productosService'
 
 function AdminDashboard() {
 
@@ -21,7 +21,7 @@ function AdminDashboard() {
     'Administrador'
 
   const totalProductos =
-    productos.length
+  obtenerProductos().length
 
   const totalUsuarios =
     obtenerUsuarios().length

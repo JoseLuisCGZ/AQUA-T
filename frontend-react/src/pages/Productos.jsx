@@ -1,13 +1,46 @@
-import { useSearchParams } from 'react-router-dom'
+import {
+  useEffect,
+  useState
+} from 'react'
+
+import {
+  useSearchParams
+} from 'react-router-dom'
 import { agregarAlCarrito } from '../services/carritoService'
 import Navbar from '../components/Navbar'
 import CategoryNav from '../components/CategoryNav'
 import ProductoCard from '../components/ProductoCard'
-
-import { productos } from '../data/productos'
+import {
+  obtenerProductos
+} from '../services/productosService'
 
 function Productos() {
   const [searchParams] = useSearchParams()
+
+  const [productos, setProductos] =
+  useState(obtenerProductos())
+
+  useEffect(() => {
+
+  function actualizarProductos() {
+    setProductos(
+      obtenerProductos()
+    )
+  }
+
+  window.addEventListener(
+    'productosActualizados',
+    actualizarProductos
+  )
+
+  return () => {
+    window.removeEventListener(
+      'productosActualizados',
+      actualizarProductos
+    )
+  }
+
+}, [])
 
   const categoria = searchParams.get('categoria')
 

@@ -1,14 +1,22 @@
-import { useEffect } from 'react'
+import {
+  useEffect,
+  useState
+} from 'react'
 import { Link } from 'react-router-dom'
 
 import Navbar from '../components/Navbar'
 import CategoryNav from '../components/CategoryNav'
 import ProductoCard from '../components/ProductoCard'
 
-import { productos } from '../data/productos'
+import {
+  obtenerProductos
+} from '../services/productosService'
 import { agregarAlCarrito } from '../services/carritoService'
 
 function Home() {
+
+  const [productos, setProductos] =
+  useState(obtenerProductos())
 
   const idsDestacados = [
     'filtro-vulcano-20',
@@ -20,6 +28,28 @@ function Home() {
     'clarificador-piscina',
     'bomba-apm37'
   ]
+
+  useEffect(() => {
+
+  function actualizarProductos() {
+    setProductos(
+      obtenerProductos()
+    )
+  }
+
+  window.addEventListener(
+    'productosActualizados',
+    actualizarProductos
+  )
+
+  return () => {
+    window.removeEventListener(
+      'productosActualizados',
+      actualizarProductos
+    )
+  }
+
+}, [])
 
   const productosDestacados = idsDestacados
     .map(id => productos.find(producto => producto.id === id))
