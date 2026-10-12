@@ -4,6 +4,7 @@ import {
 } from 'react'
 
 import {
+  Link,
   useSearchParams
 } from 'react-router-dom'
 import { agregarAlCarrito } from '../services/carritoService'
@@ -11,6 +12,7 @@ import Navbar from '../components/Navbar'
 import CategoryNav from '../components/CategoryNav'
 import ProductoCard from '../components/ProductoCard'
 import {
+  categoriasProducto,
   obtenerProductos
 } from '../services/productosService'
 
@@ -77,6 +79,60 @@ function Productos() {
       </div>
 
       <div className="container my-4">
+
+        <div className="row g-3 justify-content-center mb-5">
+
+          {categoriasProducto.map(nombre => {
+
+            const items= productos.filter(
+              producto => producto.categoria=== nombre
+            )
+
+            return (
+              <div
+                className="col-6 col-md-4 col-lg-2"
+                key={nombre}
+              >
+                <Link
+                  to={`/categorias/${nombre}`}
+                  className={`categoria-tile card h-100 text-center text-decoration-none ${
+                    nombre=== categoria
+                      ? 'border-primary border-2'
+                      : ''
+                  }`}
+                >
+
+                  {items.length > 0 && (
+                    <img
+                      src={items[0].imagen}
+                      alt={nombre}
+                      className="card-img-top"
+                      style={{
+                        height: '110px',
+                        objectFit: 'cover'
+                      }}
+                    />
+                  )}
+
+                  <div className="card-body p-2">
+                    <h6 className="card-title mb-0">
+                      {nombre}
+                    </h6>
+
+                    <small className="text-muted">
+                      {items.length} {items.length=== 1
+                        ? 'producto'
+                        : 'productos'}
+                    </small>
+                  </div>
+
+                </Link>
+              </div>
+            )
+          })}
+
+        </div>
+
         <div className="row g-4">
 
           {productosFiltrados.map(producto => (

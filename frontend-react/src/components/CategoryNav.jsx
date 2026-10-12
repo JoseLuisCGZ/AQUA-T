@@ -14,7 +14,7 @@ function CategoryNav({ mostrarAuth = false }) {
             <li className="nav-item">
               <Link
                 className="nav-link"
-                to="/productos?categoria=Filtros"
+                to="/categorias/Filtros"
               >
                 Filtros
               </Link>
@@ -23,7 +23,7 @@ function CategoryNav({ mostrarAuth = false }) {
             <li className="nav-item">
               <Link
                 className="nav-link"
-                to="/productos?categoria=Bombas"
+                to="/categorias/Bombas"
               >
                 Bombas
               </Link>
@@ -32,7 +32,7 @@ function CategoryNav({ mostrarAuth = false }) {
             <li className="nav-item">
               <Link
                 className="nav-link"
-                to="/productos?categoria=Accesorios"
+                to="/categorias/Accesorios"
               >
                 Accesorios
               </Link>
@@ -41,7 +41,7 @@ function CategoryNav({ mostrarAuth = false }) {
             <li className="nav-item">
               <Link
                 className="nav-link"
-                to="/productos?categoria=Piscinas"
+                to="/categorias/Piscinas"
               >
                 Piscinas
               </Link>
@@ -50,7 +50,7 @@ function CategoryNav({ mostrarAuth = false }) {
             <li className="nav-item">
               <Link
                 className="nav-link"
-                to="/productos?categoria=Químicos"
+                to="/categorias/Químicos"
               >
                 Químicos
               </Link>
