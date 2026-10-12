@@ -16,7 +16,15 @@ import { agregarAlCarrito } from '../services/carritoService'
 function Home() {
 
   const [productos, setProductos] =
-  useState(obtenerProductos())
+  useState([])
+
+const [cargandoProductos,
+  setCargandoProductos] =
+  useState(true)
+
+const [errorProductos,
+  setErrorProductos] =
+  useState('')
 
   const idsDestacados = [
     'filtro-vulcano-20',
@@ -31,22 +39,47 @@ function Home() {
 
   useEffect(() => {
 
-  function actualizarProductos() {
-    setProductos(
-      obtenerProductos()
-    )
+  let activo = true
+
+  async function cargarProductos() {
+
+    try {
+
+      const datos =
+        await obtenerProductos()
+
+      if (activo) {
+
+        setProductos(datos)
+        setErrorProductos('')
+
+      }
+
+    } catch (error) {
+
+      console.error(error)
+
+      if (activo) {
+
+        setErrorProductos(
+          'No fue posible cargar los productos.'
+        )
+
+      }
+
+    } finally {
+
+      if (activo) {
+        setCargandoProductos(false)
+      }
+
+    }
   }
 
-  window.addEventListener(
-    'productosActualizados',
-    actualizarProductos
-  )
+  cargarProductos()
 
   return () => {
-    window.removeEventListener(
-      'productosActualizados',
-      actualizarProductos
-    )
+    activo = false
   }
 
 }, [])
@@ -143,6 +176,26 @@ function Home() {
       <div className="container my-4">
 
         <div className="row g-4">
+
+                {cargandoProductos && (
+                
+          <div className="col-12 text-center">
+          <p className="text-muted">
+            Cargando productos...
+          </p>
+          </div>
+      
+          )}
+      
+          {errorProductos && (
+          
+          <div className="col-12 text-center">
+          <p className="text-danger">
+            {errorProductos}
+          </p>
+          </div>
+      
+          )}
 
           {productosDestacados.map(producto => (
 

@@ -17,29 +17,55 @@ import {
 function Ofertas() {
 
   const [productos, setProductos] =
-    useState(obtenerProductos)
+  useState([])
+
+const [cargando, setCargando] =
+  useState(true)
+
+const [error, setError] =
+  useState('')
 
   useEffect(() => {
 
-    function actualizarProductos() {
-      setProductos(
-        obtenerProductos()
-      )
+  let activo = true
+
+  async function cargarProductos() {
+
+    try {
+
+      const datos =
+        await obtenerProductos()
+
+      if (activo) {
+        setProductos(datos)
+        setError('')
+      }
+
+    } catch (error) {
+
+      console.error(error)
+
+      if (activo) {
+        setError(
+          'No fue posible cargar las ofertas.'
+        )
+      }
+
+    } finally {
+
+      if (activo) {
+        setCargando(false)
+      }
     }
+  }
 
-    window.addEventListener(
-      'productosActualizados',
-      actualizarProductos
-    )
+  cargarProductos()
 
-    return () => {
-      window.removeEventListener(
-        'productosActualizados',
-        actualizarProductos
-      )
-    }
+  return () => {
+    activo = false
+  }
 
-  }, [])
+}, [])
 
   const ofertas = productos.filter(
     producto => producto.precioAnterior
@@ -71,6 +97,22 @@ function Ofertas() {
       </div>
 
       <div className="container my-4">
+
+            {cargando && (
+                  
+            <p className="text-center text-muted">
+              Cargando ofertas...
+            </p>
+
+          )}
+
+          {error && (
+          
+            <p className="text-center text-danger">
+              {error}
+            </p>
+
+          )}
 
         {ofertas.length === 0 ? (
 

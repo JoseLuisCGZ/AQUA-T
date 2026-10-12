@@ -20,26 +20,52 @@ function Productos() {
   const [searchParams] = useSearchParams()
 
   const [productos, setProductos] =
-  useState(obtenerProductos())
+  useState([])
+
+const [cargando, setCargando] =
+  useState(true)
+
+const [error, setError] =
+  useState('')
 
   useEffect(() => {
 
-  function actualizarProductos() {
-    setProductos(
-      obtenerProductos()
-    )
+  let activo = true
+
+  async function cargarProductos() {
+
+    try {
+
+      const datos =
+        await obtenerProductos()
+
+      if (activo) {
+        setProductos(datos)
+        setError('')
+      }
+
+    } catch (error) {
+
+      console.error(error)
+
+      if (activo) {
+        setError(
+          'No fue posible cargar los productos.'
+        )
+      }
+
+    } finally {
+
+      if (activo) {
+        setCargando(false)
+      }
+    }
   }
 
-  window.addEventListener(
-    'productosActualizados',
-    actualizarProductos
-  )
+  cargarProductos()
 
   return () => {
-    window.removeEventListener(
-      'productosActualizados',
-      actualizarProductos
-    )
+    activo = false
   }
 
 }, [])
@@ -134,6 +160,30 @@ function Productos() {
         </div>
 
         <div className="row g-4">
+
+              {cargando && (
+                      
+              <div className="col-12 text-center">
+              
+                <p className="text-muted">
+                  Cargando productos...
+                </p>
+                      
+              </div>
+
+            )}
+
+            {error && (
+            
+              <div className="col-12 text-center">
+              
+                <p className="text-danger">
+                  {error}
+                </p>
+            
+              </div>
+
+            )}
 
           {productosFiltrados.map(producto => (
             <div

@@ -23,29 +23,55 @@ function Categorias() {
   const { nombre } = useParams()
 
   const [productos, setProductos] =
-    useState(obtenerProductos)
+  useState([])
+
+const [cargando, setCargando] =
+  useState(true)
+
+const [error, setError] =
+  useState('')
 
   useEffect(() => {
 
-    function actualizarProductos() {
-      setProductos(
-        obtenerProductos()
-      )
+  let activo = true
+
+  async function cargarProductos() {
+
+    try {
+
+      const datos =
+        await obtenerProductos()
+
+      if (activo) {
+        setProductos(datos)
+        setError('')
+      }
+
+    } catch (error) {
+
+      console.error(error)
+
+      if (activo) {
+        setError(
+          'No fue posible cargar las categorías.'
+        )
+      }
+
+    } finally {
+
+      if (activo) {
+        setCargando(false)
+      }
     }
+  }
 
-    window.addEventListener(
-      'productosActualizados',
-      actualizarProductos
-    )
+  cargarProductos()
 
-    return () => {
-      window.removeEventListener(
-        'productosActualizados',
-        actualizarProductos
-      )
-    }
+  return () => {
+    activo = false
+  }
 
-  }, [])
+}, [])
 
   const productosDe = categoria =>
     productos.filter(
@@ -102,6 +128,23 @@ function Categorias() {
       </div>
 
       <div className="container my-4">
+
+            {cargando && (
+                  
+            <p className="text-center text-muted">
+              Cargando productos...
+            </p>
+
+          )}
+
+          {error && (
+          
+            <p className="text-center text-danger">
+              {error}
+            </p>
+
+          )}
+
 
         <div className="row g-3 justify-content-center mb-5">
 

@@ -1,8 +1,5 @@
-import {
-  productos as productosBase
-} from '../data/productos'
-
-const PRODUCTOS_KEY = 'aquaT_productos'
+const API_URL =
+  'http://localhost:3001/api/productos'
 
 export const categoriasProducto = [
   'Filtros',
@@ -12,180 +9,165 @@ export const categoriasProducto = [
   'Químicos'
 ]
 
-function crearProductosIniciales() {
+function normalizarProducto(producto) {
+  return {
+    ...producto,
 
-  return productosBase.map(
-    (producto, index) => ({
-      ...producto,
+    precio:
+      Number(producto.precio),
 
-      codigo:
-        producto.codigo ||
-        `AQT-${String(index + 1)
-          .padStart(3, '0')}`,
+    precioAnterior:
+      producto.precioAnterior === null ||
+      producto.precioAnterior === undefined
+        ? null
+        : Number(producto.precioAnterior),
 
-      stock:
-        producto.stock ?? 20,
+    stock:
+      Number(producto.stock),
 
-      stockCritico:
-        producto.stockCritico ?? 5
-    })
-  )
-}
-
-function inicializarProductos() {
-
-  const guardados =
-    localStorage.getItem(
-      PRODUCTOS_KEY
-    )
-
-  if (guardados === null) {
-
-    localStorage.setItem(
-      PRODUCTOS_KEY,
-      JSON.stringify(
-        crearProductosIniciales()
-      )
-    )
+    stockCritico:
+      producto.stockCritico === null ||
+      producto.stockCritico === undefined
+        ? null
+        : Number(producto.stockCritico)
   }
 }
 
-export function obtenerProductos() {
+async function procesarRespuesta(respuesta) {
 
-  inicializarProductos()
+  if (!respuesta.ok) {
 
-  try {
+    let mensaje =
+      'Error al comunicarse con el servidor'
 
-    return JSON.parse(
-      localStorage.getItem(
-        PRODUCTOS_KEY
-      )
-    ) || []
+    try {
 
-  } catch {
+      const datos =
+        await respuesta.json()
 
-    const iniciales =
-      crearProductosIniciales()
+      if (datos.error) {
+        mensaje = datos.error
+      }
 
-    guardarProductos(iniciales)
+    } catch {
+      // Conserva el mensaje general.
+    }
 
-    return iniciales
-  }
-}
-
-export function guardarProductos(
-  productos
-) {
-
-  localStorage.setItem(
-    PRODUCTOS_KEY,
-    JSON.stringify(productos)
-  )
-
-  window.dispatchEvent(
-    new Event(
-      'productosActualizados'
-    )
-  )
-
-  return productos
-}
-
-export function obtenerProductoPorId(
-  id
-) {
-
-  return obtenerProductos().find(
-    producto =>
-      String(producto.id) ===
-      String(id)
-  )
-}
-
-function generarNuevoId(
-  productos
-) {
-
-  let numero = 1
-
-  while (
-    productos.some(
-      producto =>
-        producto.id ===
-        `producto-${numero}`
-    )
-  ) {
-    numero++
+    throw new Error(mensaje)
   }
 
-  return `producto-${numero}`
+  if (respuesta.status === 204) {
+    return null
+  }
+
+  return respuesta.json()
 }
 
-export function agregarProducto(
-  datosProducto
-) {
+export async function obtenerProductos() {
+
+  const respuesta =
+    await fetch(API_URL)
 
   const productos =
-    obtenerProductos()
+    await procesarRespuesta(respuesta)
 
-  const nuevoProducto = {
-    id:
-      generarNuevoId(productos),
-
-    ...datosProducto
-  }
-
-  productos.push(
-    nuevoProducto
+  return productos.map(
+    normalizarProducto
   )
-
-  guardarProductos(productos)
-
-  return nuevoProducto
 }
 
-export function actualizarProducto(
+export async function obtenerProductoPorId(id) {
+
+  const respuesta =
+    await fetch(
+      `${API_URL}/${id}`
+    )
+
+  const producto =
+    await procesarRespuesta(
+      respuesta
+    )
+
+  return normalizarProducto(
+    producto
+  )
+}
+
+export async function agregarProducto(datosProducto) {
+
+  const respuesta =
+    await fetch(
+      API_URL,
+      {
+        method: 'POST',
+
+        headers: {
+          'Content-Type':
+            'application/json'
+        },
+
+        body:
+          JSON.stringify(
+            datosProducto
+          )
+      }
+    )
+
+  const resultado =
+    await procesarRespuesta(
+      respuesta
+    )
+
+  return obtenerProductoPorId(
+    resultado.id
+  )
+}
+
+export async function actualizarProducto(
   id,
   datosActualizados
 ) {
 
-  const productos =
-    obtenerProductos()
+  const respuesta =
+    await fetch(
+      `${API_URL}/${id}`,
+      {
+        method: 'PUT',
 
-  const indice =
-    productos.findIndex(
-      producto =>
-        String(producto.id) ===
-        String(id)
+        headers: {
+          'Content-Type':
+            'application/json'
+        },
+
+        body:
+          JSON.stringify(
+            datosActualizados
+          )
+      }
     )
 
-  if (indice === -1) {
-    return false
-  }
+  await procesarRespuesta(
+    respuesta
+  )
 
-  productos[indice] = {
-    ...productos[indice],
-    ...datosActualizados,
-    id: productos[indice].id
-  }
-
-  guardarProductos(productos)
-
-  return true
+  return obtenerProductoPorId(
+    id
+  )
 }
 
-export function eliminarProducto(
-  id
-) {
+export async function eliminarProducto(id) {
 
-  const productos =
-    obtenerProductos().filter(
-      producto =>
-        String(producto.id) !==
-        String(id)
+  const respuesta =
+    await fetch(
+      `${API_URL}/${id}`,
+      {
+        method: 'DELETE'
+      }
     )
 
-  guardarProductos(productos)
+  await procesarRespuesta(
+    respuesta
+  )
 
-  return productos
+  return true
 }
