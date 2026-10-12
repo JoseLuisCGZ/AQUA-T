@@ -6,16 +6,15 @@ module.exports = function (config) {
       'webpack'
     ],
 
-    files: [
-      'src/test/**/*.spec.jsx',
-
-      {
-        pattern: 'src/assetsimg/**/*',
-        watched: false,
-        included: false,
-        served: true
-      }
-    ],
+  files: [
+    'src/test/**/*.spec.jsx',
+    {
+    pattern: 'public/assetsimg/**/*',
+    watched: false,
+    included: false,
+    served: true
+    }
+  ],
 
 
     preprocessors: {
@@ -25,9 +24,8 @@ module.exports = function (config) {
     },
 
     proxies: {
-      '/assetsimg/':
-        '/base/ppublic/assetsimg'
-    },
+  '/assetsimg/': '/base/public/assetsimg/'
+  },
 
     webpack: {
       mode: 'development',
