@@ -1,4 +1,7 @@
-import { useState } from 'react'
+import {
+  useEffect,
+  useState
+} from 'react'
 
 import {
   Link,
@@ -25,7 +28,83 @@ function DetalleProducto() {
 
   const [agregado, setAgregado] = useState(false)
 
-  const producto= obtenerProductoPorId(id)
+  const [producto, setProducto] =
+  useState(null)
+
+const [relacionados,
+  setRelacionados] =
+  useState([])
+
+const [cargando,
+  setCargando] =
+  useState(true)
+
+const [error, setError] =
+  useState('')
+
+  useEffect(() => {
+
+  let activo = true
+
+  async function cargarDetalle() {
+
+    try {
+
+      const [
+        productoActual,
+        todos
+      ] =
+        await Promise.all([
+          obtenerProductoPorId(id),
+          obtenerProductos()
+        ])
+
+      if (!activo) {
+        return
+      }
+
+      setProducto(
+        productoActual
+      )
+
+      setRelacionados(
+        todos
+          .filter(
+            item =>
+              item.categoria ===
+                productoActual.categoria &&
+              item.id !==
+                productoActual.id
+          )
+          .slice(0, 4)
+      )
+
+    } catch (error) {
+
+      console.error(error)
+
+      if (activo) {
+
+        setError(
+          'No se encontró el producto solicitado.'
+        )
+      }
+
+    } finally {
+
+      if (activo) {
+        setCargando(false)
+      }
+    }
+  }
+
+  cargarDetalle()
+
+  return () => {
+    activo = false
+  }
+
+}, [id])
 
   function manejarAgregar() {
 
@@ -37,6 +116,48 @@ function DetalleProducto() {
       setAgregado(false)
     }, 900)
   }
+  if (cargando) {
+
+  return (
+    <>
+      <Navbar />
+
+      <div className="container py-5 text-center">
+        <p className="text-muted">
+          Cargando producto...
+        </p>
+      </div>
+    </>
+  )
+}
+
+if (error) {
+
+  return (
+    <>
+      <Navbar />
+
+      <div className="container py-5 text-center">
+
+        <h1>
+          Producto no encontrado
+        </h1>
+
+        <p className="text-danger">
+          {error}
+        </p>
+
+        <Link
+          to="/productos"
+          className="btn btn-primary mt-3"
+        >
+          Volver a productos
+        </Link>
+
+      </div>
+    </>
+  )
+}
 
   if (!producto) {
     return (
@@ -58,14 +179,6 @@ function DetalleProducto() {
       </>
     )
   }
-
-  const relacionados= obtenerProductos()
-    .filter(
-      item =>
-        item.categoria=== producto.categoria &&
-        item.id!== producto.id
-    )
-    .slice(0, 4)
 
   return (
     <>
