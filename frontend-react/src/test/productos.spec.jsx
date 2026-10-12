@@ -13,7 +13,7 @@ describe('Vista Productos', () => {
     vista= montar(<Productos />,{ ruta: '/productos?categoria=Bombas' });
     const c= vista.contenedor;
 
-    expect(c.querySelectorAll('.card').length).toBe(bombas.length);
+    expect(c.querySelectorAll('.btn-agregar-carrito').length).toBe(bombas.length);
     expect(c.textContent).toContain('Nuestros productos: Bombas');
     expect(c.textContent).not.toContain('Filtro VC VULCANO');
   });
