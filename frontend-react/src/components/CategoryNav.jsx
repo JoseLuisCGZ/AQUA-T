@@ -59,6 +59,15 @@ function CategoryNav({ mostrarAuth = false }) {
             <li className="nav-item">
               <Link
                 className="nav-link"
+                to="/ofertas"
+              >
+                Ofertas
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link
+                className="nav-link"
                 to="/productos"
               >
                 Ver todos

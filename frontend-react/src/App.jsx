@@ -7,6 +7,7 @@ import {
 import Home from './pages/Home'
 import Productos from './pages/Productos'
 import DetalleProducto from './pages/DetalleProducto'
+import Ofertas from './pages/Ofertas'
 import Nosotros from './pages/Nosotros'
 import Blogs from './pages/Blogs'
 import BlogDetalle from './pages/BlogDetalle'
@@ -43,6 +44,11 @@ function App() {
         <Route
           path="/productos/:id"
           element={<DetalleProducto />}
+        />
+
+        <Route
+          path="/ofertas"
+          element={<Ofertas />}
         />
 
         <Route
