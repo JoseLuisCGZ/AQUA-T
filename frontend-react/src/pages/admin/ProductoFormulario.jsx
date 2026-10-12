@@ -62,60 +62,96 @@ function ProductoFormulario() {
     setProductoEncontrado] =
     useState(true)
 
+  const [cargandoProducto,
+    setCargandoProducto] =
+    useState(modoEdicion)
+
+  const [guardando,
+    setGuardando] =
+    useState(false)
+
   useEffect(() => {
 
+  let activo = true
+
+  async function cargarProducto() {
+
     if (!modoEdicion) {
-      return
-    }
 
-    const producto =
-      obtenerProductoPorId(id)
-
-    if (!producto) {
-
-      setProductoEncontrado(false)
+      setCargandoProducto(false)
 
       return
     }
 
-    setFormulario({
-      codigo:
-        producto.codigo || '',
+    try {
 
-      nombre:
-        producto.nombre || '',
+      const producto =
+        await obtenerProductoPorId(id)
 
-      descripcion:
-        producto.descripcion || '',
+      if (!activo) {
+        return
+      }
 
-      precio:
-        String(
-          producto.precio ?? ''
-        ),
+      setFormulario({
+        codigo:
+          producto.codigo || '',
 
-      stock:
-        String(
-          producto.stock ?? ''
-        ),
+        nombre:
+          producto.nombre || '',
 
-      stockCritico:
-        producto.stockCritico ===
-          null ||
-        producto.stockCritico ===
-          undefined
-          ? ''
-          : String(
-              producto.stockCritico
-            ),
+        descripcion:
+          producto.descripcion || '',
 
-      categoria:
-        producto.categoria || '',
+        precio:
+          String(
+            producto.precio ?? ''
+          ),
 
-      imagen:
-        producto.imagen || ''
-    })
+        stock:
+          String(
+            producto.stock ?? ''
+          ),
 
-  }, [id, modoEdicion])
+        stockCritico:
+          producto.stockCritico === null ||
+          producto.stockCritico === undefined
+            ? ''
+            : String(
+                producto.stockCritico
+              ),
+
+        categoria:
+          producto.categoria || '',
+
+        imagen:
+          producto.imagen || ''
+      })
+
+      setProductoEncontrado(true)
+
+    } catch (error) {
+
+      console.error(error)
+
+      if (activo) {
+        setProductoEncontrado(false)
+      }
+
+    } finally {
+
+      if (activo) {
+        setCargandoProducto(false)
+      }
+    }
+  }
+
+  cargarProducto()
+
+  return () => {
+    activo = false
+  }
+
+}, [id, modoEdicion])
 
   function actualizarCampo(
     evento
@@ -132,7 +168,7 @@ function ProductoFormulario() {
     }))
   }
 
-  function guardar(evento) {
+  async function guardar(evento) {
 
     evento.preventDefault()
 
@@ -239,32 +275,73 @@ function ProductoFormulario() {
       imagen
     }
 
-    if (modoEdicion) {
+    try {
 
-      actualizarProducto(
-        id,
-        datos
-      )
+  setGuardando(true)
 
-      setMensaje(
-        '¡Producto actualizado con éxito!'
-      )
+  if (modoEdicion) {
 
-    } else {
+    await actualizarProducto(
+      id,
+      datos
+    )
 
-      agregarProducto(datos)
+    setMensaje(
+      '¡Producto actualizado con éxito!'
+    )
 
-      setMensaje(
-        '¡Producto creado con éxito!'
-      )
-    }
+  } else {
 
-    setTimeout(() => {
-      navigate(
-        '/admin/productos'
-      )
-    }, 900)
+    await agregarProducto(
+      datos
+    )
+
+    setMensaje(
+      '¡Producto creado con éxito!'
+    )
   }
+
+  setTimeout(() => {
+    navigate(
+      '/admin/productos'
+    )
+  }, 900)
+
+} catch (error) {
+
+  console.error(error)
+
+  setMensaje(
+    error.message ||
+    'No fue posible guardar el producto.'
+  )
+
+  setGuardando(false)
+}
+  }
+
+  if (cargandoProducto) {
+
+  return (
+    <div className="admin-layout">
+
+      <AdminSidebar />
+
+      <main className="admin-contenido">
+
+        <div className="admin-panel">
+
+          <p className="text-muted">
+            Cargando producto...
+          </p>
+
+        </div>
+
+      </main>
+
+    </div>
+  )
+}
 
   if (!productoEncontrado) {
 
@@ -576,10 +653,13 @@ function ProductoFormulario() {
             <button
               type="submit"
               className="btn btn-enviar"
+              disabled={guardando}
             >
-              {modoEdicion
-                ? 'Guardar cambios'
-                : 'Guardar producto'}
+              {guardando
+                ? 'Guardando...'
+                : modoEdicion
+                  ? 'Guardar cambios'
+                  : 'Guardar producto'}
             </button>
 
           </form>

@@ -1,3 +1,8 @@
+import {
+  useEffect,
+  useState
+} from 'react'
+
 import AdminSidebar from '../../components/AdminSidebar'
 
 import {
@@ -20,11 +25,44 @@ function AdminDashboard() {
     sesion?.tipoUsuario ===
     'Administrador'
 
-  const totalProductos =
-  obtenerProductos().length
+  const [totalProductos,
+  setTotalProductos] =
+  useState(0)
 
   const totalUsuarios =
     obtenerUsuarios().length
+
+  useEffect(() => {
+
+  let activo = true
+
+  async function cargarTotalProductos() {
+
+    try {
+
+      const productos =
+        await obtenerProductos()
+
+      if (activo) {
+        setTotalProductos(
+          productos.length
+        )
+      }
+
+    } catch (error) {
+
+      console.error(error)
+
+    }
+  }
+
+  cargarTotalProductos()
+
+  return () => {
+    activo = false
+  }
+
+}, [])
 
   return (
     <div className="admin-layout">

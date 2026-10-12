@@ -1,4 +1,7 @@
-import { useState } from 'react'
+import {
+  useEffect,
+  useState
+} from 'react'
 import { Link } from 'react-router-dom'
 
 import AdminSidebar from '../../components/AdminSidebar'
@@ -25,36 +28,102 @@ function AdminProductos() {
     sesion?.tipoUsuario ===
     'Administrador'
 
-  const [productos, setProductos] =
-    useState(obtenerProductos())
+const [productos, setProductos] =
+  useState([])
 
-  function eliminar(id) {
+const [cargando, setCargando] =
+  useState(true)
 
-    const producto =
-      productos.find(
+const [error, setError] =
+  useState('')
+
+  useEffect(() => {
+
+  let activo = true
+
+  async function cargarProductos() {
+
+    try {
+
+      const datos =
+        await obtenerProductos()
+
+      if (activo) {
+        setProductos(datos)
+        setError('')
+      }
+
+    } catch (error) {
+
+      console.error(error)
+
+      if (activo) {
+        setError(
+          'No fue posible cargar los productos.'
+        )
+      }
+
+    } finally {
+
+      if (activo) {
+        setCargando(false)
+      }
+    }
+  }
+
+  cargarProductos()
+
+  return () => {
+    activo = false
+  }
+
+}, [])
+
+  async function eliminar(id) {
+
+  const producto =
+    productos.find(
+      producto =>
+        String(producto.id) ===
+        String(id)
+    )
+
+  if (!producto) {
+    return
+  }
+
+  const confirmar =
+    window.confirm(
+      `¿Eliminar el producto "${producto.nombre}"? Esta acción no se puede deshacer.`
+    )
+
+  if (!confirmar) {
+    return
+  }
+
+  try {
+
+    await eliminarProducto(id)
+
+    setProductos(prev =>
+      prev.filter(
         producto =>
-          String(producto.id) ===
+          String(producto.id) !==
           String(id)
       )
+    )
 
-    if (!producto) {
-      return
-    }
+    setError('')
 
-    const confirmar =
-      window.confirm(
-        `¿Eliminar el producto "${producto.nombre}"? Esta acción no se puede deshacer.`
-      )
+  } catch (error) {
 
-    if (!confirmar) {
-      return
-    }
+    console.error(error)
 
-    const nuevaLista =
-      eliminarProducto(id)
-
-    setProductos(nuevaLista)
+    setError(
+      'No fue posible eliminar el producto.'
+    )
   }
+}
 
   return (
     <div className="admin-layout">
@@ -83,6 +152,22 @@ function AdminProductos() {
         </div>
 
         <div className="admin-panel">
+
+          {cargando && (
+
+          <p className="text-muted text-center">
+            Cargando productos...
+          </p>
+        
+        )}
+        
+        {error && (
+        
+          <p className="text-danger text-center">
+            {error}
+          </p>
+        
+        )}
 
           {productos.length === 0 ? (
 
