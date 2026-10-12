@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 function ProductoCard({ producto, onAgregar }) {
 
@@ -23,16 +24,23 @@ function ProductoCard({ producto, onAgregar }) {
   return (
     <div className="card h-100">
 
-      <img
-        src={producto.imagen}
-        className="card-img-top"
-        alt={producto.nombre}
-      />
+      <Link to={`/productos/${producto.id}`}>
+        <img
+          src={producto.imagen}
+          className="card-img-top"
+          alt={producto.nombre}
+        />
+      </Link>
 
       <div className="card-body text-center">
 
         <h5 className="card-title">
-          {producto.nombre}
+          <Link
+            to={`/productos/${producto.id}`}
+            className="text-decoration-none text-reset"
+          >
+            {producto.nombre}
+          </Link>
         </h5>
 
         <p className="text-primary">
