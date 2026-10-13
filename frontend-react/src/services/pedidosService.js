@@ -1,45 +1,71 @@
-const PEDIDOS_KEY = 'aquaT_pedidos'
+const API_URL =
+  'http://localhost:3001/api/pedidos'
 
-export function obtenerPedidos() {
-  try {
-    return JSON.parse(
-      localStorage.getItem(PEDIDOS_KEY)
-    ) || []
-  } catch {
-    return []
+async function procesarRespuesta(
+  respuesta
+) {
+
+  if (!respuesta.ok) {
+
+    let mensaje =
+      'Error al procesar el pedido'
+
+    try {
+
+      const datos =
+        await respuesta.json()
+
+      if (datos.error) {
+        mensaje = datos.error
+      }
+
+    } catch {
+      // Mantiene el mensaje general.
+    }
+
+    throw new Error(mensaje)
   }
+
+  if (respuesta.status === 204) {
+    return null
+  }
+
+  return respuesta.json()
 }
 
-export function guardarPedidos(pedidos) {
-  localStorage.setItem(
-    PEDIDOS_KEY,
-    JSON.stringify(pedidos)
+export async function obtenerPedidos() {
+
+  const respuesta =
+    await fetch(API_URL)
+
+  return procesarRespuesta(
+    respuesta
   )
 }
 
-function generarId(pedidos) {
-  if (pedidos.length === 0) {
-    return 1
-  }
+export async function crearPedido(
+  datosPedido
+) {
 
-  return Math.max(
-    ...pedidos.map(pedido => pedido.id)
-  ) + 1
-}
+  const respuesta =
+    await fetch(
+      API_URL,
+      {
+        method: 'POST',
 
-export function crearPedido(datosPedido) {
-  const pedidos = obtenerPedidos()
+        headers: {
+          'Content-Type':
+            'application/json'
+        },
 
-  const nuevoPedido = {
-    id: generarId(pedidos),
-    fecha: new Date().toISOString(),
-    estado: 'Confirmado',
-    ...datosPedido
-  }
+        body:
+          JSON.stringify(
+            datosPedido
+          )
+      }
+    )
 
-  pedidos.push(nuevoPedido)
-
-  guardarPedidos(pedidos)
-
-  return nuevoPedido
+  return procesarRespuesta(
+    respuesta
+  )
 }

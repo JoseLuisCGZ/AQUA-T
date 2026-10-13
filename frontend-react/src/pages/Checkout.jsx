@@ -1,4 +1,7 @@
-import { useState } from 'react'
+import {
+  useEffect,
+  useState
+} from 'react'
 import {
   Link,
   useLocation,
@@ -39,45 +42,94 @@ function Checkout() {
 
   const sesion = obtenerSesion()
 
-  const usuario =
-    sesion
-      ? obtenerUsuarioPorId(sesion.id)
-      : null
-
-  const indiceRegion =
-    usuario
-      ? regionesComunas.findIndex(
-          item =>
-            item.region === usuario.region
-        )
-      : -1
-
   const estadoInicial = {
-    nombre:
-      usuario
-        ? `${usuario.nombre} ${usuario.apellidos}`.trim()
-        : '',
-
-    correo:
-      usuario?.correo || '',
-
-    telefono:
-      usuario?.telefono || '',
-
-    region:
-      indiceRegion >= 0
-        ? String(indiceRegion)
-        : '',
-
-    comuna:
-      usuario?.comuna || '',
-
-    direccion:
-      usuario?.direccion || ''
-  }
+  nombre: '',
+  correo: '',
+  telefono: '',
+  region: '',
+  comuna: '',
+  direccion: ''
+}
 
   const [formulario, setFormulario] =
     useState(estadoInicial)
+
+  const [usuario, setUsuario] =
+    useState(null)
+
+  const [procesando,
+    setProcesando] =
+    useState(false)
+
+  useEffect(() => {
+
+  let activo = true
+
+  async function cargarUsuario() {
+
+    if (!sesion) {
+      return
+    }
+
+    try {
+
+      const datos =
+        await obtenerUsuarioPorId(
+          sesion.id
+        )
+
+      if (!activo) {
+        return
+      }
+
+      setUsuario(datos)
+
+      const indiceRegion =
+        regionesComunas.findIndex(
+          item =>
+            item.region ===
+            datos.region
+        )
+
+      setFormulario({
+        nombre:
+          `${datos.nombre} ${datos.apellidos}`
+            .trim(),
+
+        correo:
+          datos.correo || '',
+
+        telefono:
+          datos.telefono || '',
+
+        region:
+          indiceRegion >= 0
+            ? String(indiceRegion)
+            : '',
+
+        comuna:
+          datos.comuna || '',
+
+        direccion:
+          datos.direccion || ''
+      })
+
+    } catch (error) {
+
+      console.error(
+        'No se pudo cargar el usuario:',
+        error
+      )
+    }
+  }
+
+  cargarUsuario()
+
+  return () => {
+    activo = false
+  }
+
+}, [sesion?.id])
 
   const [mensajeError, setMensajeError] =
     useState('')
@@ -132,7 +184,7 @@ function Checkout() {
     }))
   }
 
-  function confirmarCompra(evento) {
+  async function confirmarCompra(evento) {
 
     evento.preventDefault()
 
@@ -158,8 +210,11 @@ function Checkout() {
           Number(formulario.region)
         ].region
 
-      const pedido = crearPedido({
-        usuarioId:
+      setProcesando(true)
+
+        const pedido =
+          await crearPedido({
+          usuarioId:
           usuario?.id || null,
 
         cliente: {
@@ -427,8 +482,11 @@ function Checkout() {
                   <button
                     type="submit"
                     className="btn btn-enviar w-100"
+                    disabled={procesando}
                   >
-                    Confirmar compra
+                    {procesando
+                      ? 'Procesando...'
+                      : 'Confirmar compra'}
                   </button>
 
                 </form>
