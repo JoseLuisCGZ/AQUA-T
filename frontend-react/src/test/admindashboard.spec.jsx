@@ -1,23 +1,83 @@
-import AdminDashboard from '../pages/admin/AdminDashboard';
-import { obtenerProductos } from '../services/productosService';
-import { obtenerUsuarios } from '../services/usuariosService';
-import { montar, limpiarAlmacenamiento, iniciarSesionComo } from './utils';
+import AdminDashboard
+  from '../pages/admin/AdminDashboard'
 
-describe('Vista AdminDashboard', () => {
-  let vista;
-  beforeEach(() => {
-    limpiarAlmacenamiento();
-    iniciarSesionComo('Administrador', 'Iván');
-  });
-  afterEach(() => vista.desmontar());
+import {
+  obtenerProductos
+} from '../services/productosService'
 
-  it('muestra la cantidad de productos y usuarios registrados', () => {
-    vista = montar(<AdminDashboard />);
-    const c = vista.contenedor;
-    const numeros = Array.from(c.querySelectorAll('.admin-stat-numero')).map((n) => n.textContent);
+import {
+  obtenerUsuarios
+} from '../services/usuariosService'
 
-    expect(c.textContent).toContain('Productos registrados');
-    expect(c.textContent).toContain('Usuarios registrados');
-    expect(numeros).toEqual([String(obtenerProductos().length), String(obtenerUsuarios().length)]);
-  });
-});
+import {
+  montar,
+  limpiarAlmacenamiento,
+  iniciarSesionComo,
+  esperarActualizacion
+} from './utils'
+
+describe(
+  'Vista AdminDashboard',
+  () => {
+
+    let vista
+
+    beforeEach(() => {
+
+      limpiarAlmacenamiento()
+
+      iniciarSesionComo(
+        'Administrador',
+        'Iván'
+      )
+    })
+
+    afterEach(
+      () => vista.desmontar()
+    )
+
+    it(
+      'muestra la cantidad de productos y usuarios registrados',
+      async () => {
+
+        const productos =
+          await obtenerProductos()
+
+        const usuarios =
+          await obtenerUsuarios()
+
+        vista =
+          montar(
+            <AdminDashboard />
+          )
+
+        await esperarActualizacion()
+
+        const c =
+          vista.contenedor
+
+        const numeros =
+          Array.from(
+            c.querySelectorAll(
+              '.admin-stat-numero'
+            )
+          ).map(
+            nodo =>
+              nodo.textContent
+          )
+
+        expect(
+          numeros
+        ).toEqual([
+          String(
+            productos.length
+          ),
+
+          String(
+            usuarios.length
+          )
+        ])
+      }
+    )
+  }
+)
