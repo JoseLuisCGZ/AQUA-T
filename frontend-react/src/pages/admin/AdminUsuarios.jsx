@@ -1,4 +1,7 @@
-import { useState } from 'react'
+import {
+  useEffect,
+  useState
+} from 'react'
 import { Link } from 'react-router-dom'
 
 import AdminSidebar from '../../components/AdminSidebar'
@@ -11,7 +14,55 @@ import {
 function AdminUsuarios() {
 
   const [usuarios, setUsuarios] =
-    useState(obtenerUsuarios())
+  useState([])
+
+  const [cargando, setCargando] =
+  useState(true)
+
+  const [error, setError] =
+  useState('')
+
+  useEffect(() => {
+
+  let activo = true
+
+  async function cargarUsuarios() {
+
+    try {
+
+      const datos =
+        await obtenerUsuarios()
+
+      if (activo) {
+        setUsuarios(datos)
+        setError('')
+      }
+
+    } catch (error) {
+
+      console.error(error)
+
+      if (activo) {
+        setError(
+          'No fue posible cargar los usuarios.'
+        )
+      }
+
+    } finally {
+
+      if (activo) {
+        setCargando(false)
+      }
+    }
+  }
+
+  cargarUsuarios()
+
+  return () => {
+    activo = false
+  }
+
+}, [])
 
   function claseRol(tipo) {
 
@@ -26,7 +77,7 @@ function AdminUsuarios() {
     return 'bg-secondary'
   }
 
-  function eliminar(id) {
+  async function eliminar(id) {
 
     const usuario =
       usuarios.find(
@@ -47,10 +98,26 @@ function AdminUsuarios() {
       return
     }
 
-    const nuevaLista =
-      eliminarUsuario(id)
+    try {
 
-    setUsuarios(nuevaLista)
+  await eliminarUsuario(id)
+
+  setUsuarios(prev =>
+    prev.filter(
+      usuario =>
+        usuario.id !==
+        Number(id)
+    )
+  )
+
+} catch (error) {
+
+  console.error(error)
+
+  setError(
+    'No fue posible eliminar el usuario.'
+  )
+}
   }
 
   return (
@@ -76,6 +143,22 @@ function AdminUsuarios() {
         </div>
 
         <div className="admin-panel">
+
+          {cargando && (
+
+            <p className="text-muted text-center">
+              Cargando usuarios...
+            </p>
+          
+          )}
+          
+          {error && (
+          
+            <p className="text-danger text-center">
+              {error}
+            </p>
+          
+          )}
 
           {usuarios.length === 0 ? (
 

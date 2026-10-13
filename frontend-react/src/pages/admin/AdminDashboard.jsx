@@ -29,34 +29,46 @@ function AdminDashboard() {
   setTotalProductos] =
   useState(0)
 
-  const totalUsuarios =
-    obtenerUsuarios().length
+  const [totalUsuarios,
+  setTotalUsuarios] =
+  useState(0)
 
   useEffect(() => {
 
   let activo = true
 
-  async function cargarTotalProductos() {
+  async function cargarTotales() {
 
-    try {
+  try {
 
-      const productos =
-        await obtenerProductos()
+    const [
+      productos,
+      usuarios
+    ] =
+      await Promise.all([
+        obtenerProductos(),
+        obtenerUsuarios()
+      ])
 
-      if (activo) {
-        setTotalProductos(
-          productos.length
-        )
-      }
+    if (activo) {
 
-    } catch (error) {
+      setTotalProductos(
+        productos.length
+      )
 
-      console.error(error)
-
+      setTotalUsuarios(
+        usuarios.length
+      )
     }
-  }
 
-  cargarTotalProductos()
+  } catch (error) {
+
+    console.error(error)
+
+  }
+}
+
+  cargarTotales()
 
   return () => {
     activo = false

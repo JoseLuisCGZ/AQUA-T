@@ -12,10 +12,11 @@ import {
 import AdminSidebar from '../../components/AdminSidebar'
 
 import {
-  obtenerUsuarios,
   obtenerUsuarioPorId,
   agregarUsuario,
   actualizarUsuario,
+  correoExiste, 
+  runExiste,
   tiposUsuario
 } from '../../services/usuariosService'
 
@@ -51,6 +52,7 @@ function UsuarioFormulario() {
     apellidos: '',
     correo: '',
     contrasena: '',
+    telefono: '',
     fechaNacimiento: '',
     tipoUsuario: '',
     region: '',
@@ -71,95 +73,137 @@ function UsuarioFormulario() {
     setUsuarioEncontrado] =
     useState(true)
 
+  const [cargandoUsuario,
+    setCargandoUsuario] =
+    useState(modoEdicion)
+
+  const [guardando,
+    setGuardando] =
+    useState(false)
+
   useEffect(() => {
 
+  let activo = true
+
+  async function cargarUsuario() {
+
     if (!modoEdicion) {
-      return
-    }
 
-    const usuario =
-      obtenerUsuarioPorId(id)
-
-    if (!usuario) {
-
-      setUsuarioEncontrado(false)
+      setCargandoUsuario(false)
 
       return
     }
 
-    const indiceRegion =
-      regionesComunas.findIndex(
-        item =>
-          item.region === usuario.region
-      )
+    try {
 
-    setFormulario({
-      run:
-        usuario.run || '',
+      const usuario =
+        await obtenerUsuarioPorId(id)
 
-      nombre:
-        usuario.nombre || '',
+      if (!activo) {
+        return
+      }
 
-      apellidos:
-        usuario.apellidos || '',
+      const indiceRegion =
+        regionesComunas.findIndex(
+          item =>
+            item.region ===
+            usuario.region
+        )
 
-      correo:
-        usuario.correo || '',
+      setFormulario({
+        run:
+          usuario.run || '',
 
-      contrasena: '',
+        nombre:
+          usuario.nombre || '',
 
-      fechaNacimiento:
-        usuario.fechaNacimiento || '',
+        apellidos:
+          usuario.apellidos || '',
 
-      tipoUsuario:
-        usuario.tipoUsuario || '',
+        correo:
+          usuario.correo || '',
 
-      region:
-        indiceRegion >= 0
-          ? String(indiceRegion)
-          : '',
+        contrasena: '',
 
-      comuna:
-        usuario.comuna || '',
+        telefono:
+          usuario.telefono || '',
 
-      direccion:
-        usuario.direccion || ''
-    })
+        fechaNacimiento:
+          usuario.fechaNacimiento || '',
 
-  }, [id, modoEdicion])
+        tipoUsuario:
+          usuario.tipoUsuario || '',
 
-  const comunasDisponibles =
-    formulario.region !== ''
-      ? regionesComunas[
-          Number(formulario.region)
-        ].comunas
-      : []
+        region:
+          indiceRegion >= 0
+            ? String(indiceRegion)
+            : '',
 
-  function actualizarCampo(evento) {
+        comuna:
+          usuario.comuna || '',
 
-    const {
-      name,
-      value
-    } = evento.target
+        direccion:
+          usuario.direccion || ''
+      })
 
-    if (name === 'region') {
+      setUsuarioEncontrado(true)
 
-      setFormulario(prev => ({
-        ...prev,
-        region: value,
-        comuna: ''
-      }))
+    } catch (error) {
 
-      return
+      console.error(error)
+
+      if (activo) {
+        setUsuarioEncontrado(false)
+      }
+
+    } finally {
+
+      if (activo) {
+        setCargandoUsuario(false)
+      }
     }
+  }
+
+  cargarUsuario()
+
+  return () => {
+    activo = false
+  }
+
+}, [id, modoEdicion])
+
+const comunasDisponibles =
+  formulario.region !== ''
+    ? regionesComunas[
+        Number(formulario.region)
+      ]?.comunas || []
+    : []
+
+function actualizarCampo(evento) {
+
+  const {
+    name,
+    value
+  } = evento.target
+
+  if (name === 'region') {
 
     setFormulario(prev => ({
       ...prev,
-      [name]: value
+      region: value,
+      comuna: ''
     }))
+
+    return
   }
 
-  function guardar(evento) {
+  setFormulario(prev => ({
+    ...prev,
+    [name]: value
+  }))
+}
+
+  async function guardar(evento) {
 
     evento.preventDefault()
 
@@ -242,51 +286,54 @@ function UsuarioFormulario() {
       return
     }
 
-    const usuarios =
-      obtenerUsuarios()
+    try {
 
-    const runDuplicado =
-      usuarios.some(
-        usuario =>
-          usuario.run.toUpperCase() ===
-            formulario.run
-              .trim()
-              .toUpperCase() &&
-          usuario.id !== Number(id)
-      )
+  if (
+    await runExiste(
+      formulario.run,
+      modoEdicion
+        ? id
+        : null
+    )
+  ) {
 
-    if (runDuplicado) {
+    setErrores(prev => ({
+      ...prev,
+      run:
+        'Este RUN ya está registrado'
+    }))
 
-      setErrores(prev => ({
-        ...prev,
-        run:
-          'Este RUN ya está registrado'
-      }))
+    return
+  }
 
-      return
-    }
+  if (
+    await correoExiste(
+      formulario.correo,
+      modoEdicion
+        ? id
+        : null
+    )
+  ) {
 
-    const correoDuplicado =
-      usuarios.some(
-        usuario =>
-          usuario.correo
-            .toLowerCase() ===
-            formulario.correo
-              .trim()
-              .toLowerCase() &&
-          usuario.id !== Number(id)
-      )
+    setErrores(prev => ({
+      ...prev,
+      correo:
+        'Este correo ya está registrado'
+    }))
 
-    if (correoDuplicado) {
+    return
+  }
 
-      setErrores(prev => ({
-        ...prev,
-        correo:
-          'Este correo ya está registrado'
-      }))
+} catch (error) {
 
-      return
-    }
+  console.error(error)
+
+  setMensaje(
+    'No fue posible validar los datos.'
+  )
+
+  return
+}
 
     const region =
       regionesComunas[
@@ -311,6 +358,9 @@ function UsuarioFormulario() {
           .trim()
           .toLowerCase(),
 
+      telefono:
+        formulario.telefono || '',
+
       fechaNacimiento:
         formulario.fechaNacimiento,
 
@@ -326,54 +376,86 @@ function UsuarioFormulario() {
         formulario.direccion.trim()
     }
 
-    if (modoEdicion) {
+    try {
 
-      const usuarioActual =
-        obtenerUsuarioPorId(id)
+  setGuardando(true)
 
-      actualizarUsuario(
-        id,
-        {
-          ...datos,
+  if (modoEdicion) {
 
-          contrasena:
-            formulario.contrasena !== ''
-              ? formulario.contrasena
-              : usuarioActual.contrasena,
-
-          telefono:
-            usuarioActual.telefono || ''
-        }
-      )
-
-      setMensaje(
-        '¡Usuario actualizado con éxito!'
-      )
-
-    } else {
-
-      agregarUsuario({
+    await actualizarUsuario(
+      id,
+      {
         ...datos,
 
         contrasena:
-          formulario.contrasena,
+          formulario.contrasena !== ''
+            ? formulario.contrasena
+            : undefined
+      }
+    )
 
-        telefono: ''
-      })
+    setMensaje(
+      '¡Usuario actualizado con éxito!'
+    )
 
-      setMensaje(
-        '¡Usuario creado con éxito!'
-      )
-    }
+  } else {
 
-    setTimeout(() => {
+    await agregarUsuario({
+      ...datos,
 
-      navigate(
-        '/admin/usuarios'
-      )
+      contrasena:
+        formulario.contrasena
+    })
 
-    }, 900)
+    setMensaje(
+      '¡Usuario creado con éxito!'
+    )
   }
+
+  setTimeout(() => {
+
+    navigate(
+      '/admin/usuarios'
+    )
+
+  }, 900)
+
+} catch (error) {
+
+  console.error(error)
+
+  setMensaje(
+    error.message ||
+    'No fue posible guardar el usuario.'
+  )
+
+  setGuardando(false)
+}
+
+  }
+
+  if (cargandoUsuario) {
+
+  return (
+    <div className="admin-layout">
+
+      <AdminSidebar />
+
+      <main className="admin-contenido">
+
+        <div className="admin-panel">
+
+          <p className="text-muted">
+            Cargando usuario...
+          </p>
+
+        </div>
+
+      </main>
+
+    </div>
+  )
+}
 
   if (!usuarioEncontrado) {
 
@@ -748,10 +830,13 @@ function UsuarioFormulario() {
             <button
               type="submit"
               className="btn btn-enviar"
+              disabled={guardando}
             >
-              {modoEdicion
-                ? 'Guardar cambios'
-                : 'Guardar usuario'}
+              {guardando
+                ? 'Guardando...'
+                : modoEdicion
+                  ? 'Guardar cambios'
+                  : 'Guardar usuario'}
             </button>
 
           </form>

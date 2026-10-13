@@ -165,7 +165,7 @@ function Registro() {
     validarCampo(name, value)
   }
 
-  function registrar(evento) {
+  async function registrar(evento) {
 
     evento.preventDefault()
 
@@ -243,7 +243,11 @@ function Registro() {
     return
     }
 
-    if (runExiste(formulario.run)) {
+    if (
+    await runExiste(
+    formulario.run
+   )
+    ) {
 
     setErrores(prev => ({
         ...prev,
@@ -259,7 +263,11 @@ function Registro() {
     return
     }
 
-    if (correoExiste(formulario.correo)) {
+    if (
+    await correoExiste(
+      formulario.correo
+    )
+    ) {
 
       setErrores(prev => ({
         ...prev,
@@ -280,7 +288,7 @@ function Registro() {
         Number(formulario.region)
       ].region
 
-    agregarUsuario({
+    await agregarUsuario({
       run: formulario.run.trim().toUpperCase(),
       nombre: formulario.nombre.trim(),
       apellidos: formulario.apellidos.trim(),

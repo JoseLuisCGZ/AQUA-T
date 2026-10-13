@@ -38,7 +38,7 @@ function Login() {
   const [exito, setExito] =
     useState(false)
 
-  function enviarLogin(evento) {
+  async function enviarLogin(evento) {
 
     evento.preventDefault()
 
@@ -69,23 +69,29 @@ function Login() {
       return
     }
 
-    const usuario =
-      validarCredenciales(
-        correo,
-        contrasena
-      )
+    let usuario
 
-    if (!usuario) {
-
+    try {
+    
+      usuario =
+        await validarCredenciales(
+          correo,
+          contrasena
+        )
+      
+    } catch (error) {
+    
+      console.error(error)
+    
       setMensajeForm(
         'Correo o contraseña incorrectos'
       )
-
+    
       setExito(false)
-
+    
       return
     }
-
+    
     guardarSesion(usuario)
 
     setMensajeForm(
