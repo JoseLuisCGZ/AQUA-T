@@ -48,6 +48,10 @@ CREATE TABLE IF NOT EXISTS usuarios (
     fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE USER 'aquatadmin'@'localhost' IDENTIFIED BY 'AQUAT2026';
+GRANT ALL PRIVILEGES ON aquat.* TO 'aquatadmin'@'localhost';
+FLUSH PRIVILEGES ;
+
 CREATE TABLE IF NOT EXISTS pedidos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     usuario_id INT NULL,
