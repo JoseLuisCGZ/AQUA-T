@@ -5,6 +5,7 @@ import {
 } from 'react-router-dom'
 
 import Navbar from '../components/Navbar'
+import BotonGoogle from '../components/BotonGoogle'
 
 import {
   validarEmailLogin,
@@ -119,6 +120,28 @@ function Login() {
 
       }, 1000)
       }
+       function loginGoogle(datosGoogle) {
+
+    const usuario = {
+      nombre: datosGoogle.nombre,
+      correo: datosGoogle.correo,
+      foto: datosGoogle.foto,
+      tipoUsuario: 'Cliente',
+      proveedor: 'google'
+    }
+
+    guardarSesion(usuario)
+
+    setMensajeForm(
+      `Bienvenido/a ${usuario.nombre}.`
+    )
+
+    setExito(true)
+
+    setTimeout(() => {
+      navigate('/')
+    }, 1000)
+  }
 
   return (
     <>
