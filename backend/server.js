@@ -5,13 +5,20 @@ import productos from './routes/productos.js'
 import usuarios from './routes/usuarios.js'
 import pedidos from './routes/pedidos.js'
 import notificaciones from './routes/notificaciones.js'
+
 const app = express()
-app.use(cors({ origin: 'http://localhost:5173' }))
+
+const origenes = (process.env.FRONTEND_URL || 'http://localhost:5173')
+  .split(',')
+  .map(o => o.trim())
+
+app.use(cors({ origin: origenes }))
 app.use(express.json())
 
 app.use('/api/productos', productos)
 app.use('/api/usuarios', usuarios)
 app.use('/api/pedidos', pedidos)
 app.use('/api/notificaciones', notificaciones)
+
 app.listen(process.env.PORT, () =>
   console.log(`API en http://localhost:${process.env.PORT}`))
