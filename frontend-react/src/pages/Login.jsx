@@ -94,7 +94,7 @@ function Login() {
     }
     
     guardarSesion(usuario)
-
+    avisarInicioSesion(usuario)
     setMensajeForm(
       `Bienvenido/a ${usuario.nombre}.`
     )
@@ -131,7 +131,7 @@ function Login() {
     }
 
     guardarSesion(usuario)
-
+    avisarInicioSesion(usuario)
     setMensajeForm(
       `Bienvenido/a ${usuario.nombre}.`
     )
@@ -142,7 +142,20 @@ function Login() {
       navigate('/')
     }, 1000)
   }
-
+  async function avisarInicioSesion(usuario) {
+  try {
+    await fetch('http://localhost:3001/api/notificaciones/inicio-sesion', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        correo: usuario.correo,
+        nombre: usuario.nombre
+      })
+    })
+  } catch (error) {
+    console.error('No se pudo enviar el aviso', error)
+  }
+}
   return (
     <>
       <Navbar />
