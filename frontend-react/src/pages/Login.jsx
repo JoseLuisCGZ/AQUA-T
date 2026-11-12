@@ -281,6 +281,22 @@ function Login() {
               >
                 Iniciar sesión
               </button>
+              
+
+              {/* ▼ NUEVO ▼ */}
+              <div className="text-center my-3 text-muted">
+                o
+              </div>
+
+              <div className="d-flex justify-content-center">
+                <BotonGoogle
+                  onExito={loginGoogle}
+                  onError={mensaje => {
+                    setMensajeForm(mensaje)
+                    setExito(false)
+                  }}
+                />
+              </div>
 
               <p className="text-center mt-3 mb-0">
 

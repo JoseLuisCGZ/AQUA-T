@@ -5,7 +5,7 @@ import App from './App.jsx'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/style.css';
 import './styles/admin.css';
-
+console.log('Client ID:', import.meta.env.VITE_GOOGLE_CLIENT_ID)
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <App />
