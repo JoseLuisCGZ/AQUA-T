@@ -1,5 +1,5 @@
 const API_URL =
-  'http://localhost:3001/api/usuarios'
+  `${import.meta.env.VITE_API_URL || 'http://localhost:3001'}/api/usuarios`
 
 export const tiposUsuario = [
   'Administrador',

@@ -144,7 +144,7 @@ function Login() {
   }
   async function avisarInicioSesion(usuario) {
   try {
-    await fetch('http://localhost:3001/api/notificaciones/inicio-sesion', {
+    await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3001'}/api/notificaciones/inicio-sesion`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

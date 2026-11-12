@@ -1,5 +1,5 @@
 const API_URL =
-  'http://localhost:3001/api/productos'
+  `${import.meta.env.VITE_API_URL || 'http://localhost:3001'}/api/productos`
 
 export const categoriasProducto = [
   'Filtros',

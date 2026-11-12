@@ -1,5 +1,5 @@
 const API_URL =
-  'http://localhost:3001/api/pedidos'
+  `${import.meta.env.VITE_API_URL || 'http://localhost:3001'}/api/pedidos`
 
 async function procesarRespuesta(
   respuesta
