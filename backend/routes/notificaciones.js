@@ -1,15 +1,7 @@
 import express from 'express'
-import nodemailer from 'nodemailer'
+import { enviarCorreo, esc } from '../mailer.js'
 
 const router = express.Router()
-
-const transporte = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.MAIL_USER,
-    pass: process.env.MAIL_PASS
-  }
-})
 
 router.post('/inicio-sesion', async (req, res) => {
   const { correo, nombre } = req.body
@@ -19,16 +11,15 @@ router.post('/inicio-sesion', async (req, res) => {
   }
 
   try {
-    await transporte.sendMail({
-      from: `"AQUA-T" <${process.env.MAIL_USER}>`,
-      to: correo,
-      subject: 'Inicio de sesión en AQUA-T',
+    await enviarCorreo({
+      para: correo,
+      nombre,
+      asunto: 'Inicio de sesión en AQUA-T',
       html: `
-        <h2>Hola ${nombre || ''}</h2>
+        <h2>Hola ${esc(nombre)}</h2>
         <p>Se ha iniciado sesión en tu cuenta de AQUA-T.</p>
-        <p><strong>Fecha:</strong> ${new Date().toLocaleString('es-CL')}</p>
-        <p>Si no fuiste tú, cambia tu contraseña.</p>
-      `
+        <p><strong>Fecha:</strong> ${new Date().toLocaleString('es-CL', { timeZone: 'America/Santiago' })}</p>
+        <p>Si no fuiste tú, cambia tu contraseña.</p>`
     })
 
     res.json({ ok: true })
